@@ -1,0 +1,14 @@
+# Raw data
+data/raw/*
+*.sav
+
+# Temporary files
+~$*
+.DS_Store
+.ipynb_checkpoints/
+
+# Large or unnecessary exports
+*.zip
+
+# Optional: Word working files
+*.docx

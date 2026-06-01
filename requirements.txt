@@ -1,0 +1,11 @@
+---TBReviewed---
+
+
+pandas
+pyreadstat
+openpyxl
+matplotlib
+numpy
+scipy
+statsmodels
+scikit-learn (Clustering)
