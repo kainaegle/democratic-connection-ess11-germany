@@ -150,27 +150,22 @@ This will be interpreted carefully and without stigmatizing political groups.
 
 ## 9. KPIs and Analytical Metrics
 
-This project uses analytical KPIs rather than business KPIs.
+This project uses analytical KPIs rather than business KPIs. The KPIs are designed to measure where democratic connection appears stronger or weaker in the ESS11 Germany data.
 
-Main KPIs:
-
-- mean democratic satisfaction score
-- mean trust in parliament
-- mean trust in politicians
-- mean trust in political parties
-- party-trust gap
-- participation gap between voters and non-voters
-- political efficacy gap
-- social trust gap
-- economic security gap
-- group differences across trust profiles
-- correlations between trust dimensions
-- planned statistical significance indicators
-- planned effect size indicators
+| KPI | SMART Formulation | ESS Variables | Purpose |
+|---|---|---|---|
+| Party-Trust Gap | Measure the mean difference between trust in political parties/politicians and trust in other institutions in the ESS11 Germany sample. | `trstprt`, `trstplt`, `trstprl`, `trstlgl`, `trstplc` | Identify whether trust is especially weak toward political actors. |
+| Participation Gap | Compare mean democratic satisfaction and institutional trust between voters and non-voters in the cleaned Germany dataset. | `vote_clean`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Assess whether non-voting is associated with weaker democratic connection. |
+| Political Efficacy Gap | Compare mean democratic satisfaction and institutional trust across low, medium and high political efficacy groups. | `political_efficacy_index`, `efficacy_group`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Assess whether perceived political influence is associated with democratic trust. |
+| Social Trust Gap | Compare mean democratic satisfaction and institutional trust across low, medium and high social trust groups. | `social_trust_index`, `social_trust_group`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Explore whether democratic trust is linked to broader social confidence. |
+| Economic Security Gap | Compare mean democratic satisfaction and institutional trust across household income-feeling groups. | `hincfel`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Assess whether subjective economic strain is associated with lower democratic trust. |
+| Political Orientation Pattern | Compare democratic satisfaction and institutional trust across grouped left-right self-placement categories. | `lr_group`, `lrscale`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Explore whether trust patterns differ across political self-placement groups. |
+| Statistical Validation | Validate the strongest EDA patterns using appropriate statistical tests and effect sizes before final interpretation. | selected cleaned variables | Ensure that conclusions are not based only on visual inspection. |
+| Dashboard Readiness | Produce at least one dashboard-ready clean dataset and a set of clear visual outputs for final presentation. | `df_extended`, exported CSV, PNG visualizations | Support communication of findings to political and civic stakeholders. |
 
 ## 10. Data Pipeline Draft
 
-The project follows a structured data analytics pipeline.
+The project follows a structured data analytics pipeline..
 
 ### 10.1 Collect
 
