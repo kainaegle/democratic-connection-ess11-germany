@@ -1,0 +1,7 @@
+label,explanatory_variable,correlation_with_party_trust
+Political efficacy index,political_efficacy_index,0.42
+Social trust index,social_trust_index,0.375
+Age,agea,-0.152
+Years of education,eduyrs,0.151
+Left-right placement,lrscale,-0.142
+Income feeling,hincfel,-0.14

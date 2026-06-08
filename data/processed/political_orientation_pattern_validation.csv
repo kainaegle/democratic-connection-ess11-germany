@@ -1,0 +1,5 @@
+outcome,variable,groups,n_total,n_left,n_center,n_right,mean_left,mean_center,mean_right,median_left,median_center,median_right,kruskal_h,p_value,epsilon_squared,effect_size_interpretation
+Democracy satisfaction,stfdem,"Left (0-3), Center (4-6), Right (7-10)",2307,601,1436,270,6.28,5.64,4.77,7.0,6.0,5.0,62.92,0.0,0.026,small
+Trust in parliament,trstprl,"Left (0-3), Center (4-6), Right (7-10)",2307,601,1436,270,5.75,5.01,3.96,6.0,5.0,4.0,87.62,0.0,0.037,small
+Trust in politicians,trstplt,"Left (0-3), Center (4-6), Right (7-10)",2308,601,1436,271,4.6,3.96,3.16,5.0,4.0,3.0,73.21,0.0,0.031,small
+Trust in political parties,trstprt,"Left (0-3), Center (4-6), Right (7-10)",2300,598,1432,270,4.42,3.96,3.31,5.0,4.0,3.0,51.19,0.0,0.021,small

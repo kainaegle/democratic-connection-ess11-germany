@@ -1,0 +1,3 @@
+model,n_observations,r_squared,adj_r_squared,residual_mean,residual_std,aic,bic
+Democracy satisfaction,2064,0.254,0.251,-0.0,2.188,9107.1,9157.8
+Trust in political parties,2064,0.281,0.278,-0.0,1.823,8352.3,8403.0

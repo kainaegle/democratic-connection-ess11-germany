@@ -1,0 +1,6 @@
+priority,trust_gap,analytical_strength,strategic_relevance,reason,recommended_role_in_story
+1,Political Efficacy Gap,Very strong,Very high,Shows large effects for trust in parliament and politicians and a clear graded pattern across all outcomes.,Core finding
+2,Social Trust Gap,Strong,High,Shows medium effects across all outcomes and connects institutional trust with broader social confidence.,Core finding
+3,Participation Gap,Strong,Very high,Shows medium effects between voters and non-voters and is directly relevant for democratic re-engagement.,Core finding / political action point
+4,Economic Security Gap,Moderate,High,Shows consistent but smaller effects; important as a contextual factor for democratic trust.,Supporting factor
+5,Political Orientation Pattern,Weak to moderate,Medium,Shows statistically significant but small effects; should be interpreted carefully and not overemphasized.,Contextual pattern

@@ -1,0 +1,5 @@
+outcome,variable,groups,n_total,mean_low_efficacy,mean_medium_efficacy,mean_high_efficacy,median_low_efficacy,median_medium_efficacy,median_high_efficacy,kruskal_h,p_value,epsilon_squared,effect_size_interpretation
+Democracy satisfaction,stfdem,"Low efficacy, Medium efficacy, High efficacy",2398,4.82,5.82,6.92,5.0,6.0,7.0,298.94,0.0,0.124,medium
+Trust in parliament,trstprl,"Low efficacy, Medium efficacy, High efficacy",2400,3.93,5.23,6.61,4.0,5.0,7.0,444.88,0.0,0.185,large
+Trust in politicians,trstplt,"Low efficacy, Medium efficacy, High efficacy",2401,3.12,4.15,5.24,3.0,4.0,5.0,351.01,0.0,0.146,large
+Trust in political parties,trstprt,"Low efficacy, Medium efficacy, High efficacy",2391,3.17,4.1,5.1,3.0,4.0,5.0,332.32,0.0,0.138,medium

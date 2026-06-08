@@ -1,0 +1,5 @@
+outcome,variable,n_voted,mean_voted,n_did_not_vote,mean_did_not_vote,mean_difference,t_statistic,p_value,cohens_d,effect_size_interpretation
+Democracy satisfaction,stfdem,1832,5.76,227,4.42,1.34,7.19,0.0,0.54,medium
+Trust in parliament,trstprl,1832,5.17,227,3.63,1.54,8.37,0.0,0.59,medium
+Trust in politicians,trstplt,1832,4.11,227,2.84,1.27,7.84,0.0,0.55,medium
+Trust in political parties,trstprt,1832,4.05,227,2.91,1.14,7.22,0.0,0.54,medium

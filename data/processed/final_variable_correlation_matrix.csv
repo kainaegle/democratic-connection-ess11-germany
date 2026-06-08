@@ -1,0 +1,11 @@
+,Democracy satisfaction,Trust in parliament,Trust in politicians,Trust in political parties,Political efficacy index,Social trust index,Income feeling,Left-right placement,Years of education,Age
+Democracy satisfaction,1.0,0.65,0.63,0.6,0.38,0.34,-0.19,-0.16,0.15,-0.08
+Trust in parliament,0.65,1.0,0.77,0.72,0.48,0.37,-0.18,-0.2,0.22,-0.12
+Trust in politicians,0.63,0.77,1.0,0.84,0.42,0.4,-0.17,-0.18,0.15,-0.07
+Trust in political parties,0.6,0.72,0.84,1.0,0.42,0.38,-0.14,-0.14,0.15,-0.15
+Political efficacy index,0.38,0.48,0.42,0.42,1.0,0.28,-0.26,-0.14,0.4,-0.14
+Social trust index,0.34,0.37,0.4,0.38,0.28,1.0,-0.2,-0.12,0.22,0.04
+Income feeling,-0.19,-0.18,-0.17,-0.14,-0.26,-0.2,1.0,0.03,-0.23,-0.04
+Left-right placement,-0.16,-0.2,-0.18,-0.14,-0.14,-0.12,0.03,1.0,-0.1,0.05
+Years of education,0.15,0.22,0.15,0.15,0.4,0.22,-0.23,-0.1,1.0,-0.09
+Age,-0.08,-0.12,-0.07,-0.15,-0.14,0.04,-0.04,0.05,-0.09,1.0

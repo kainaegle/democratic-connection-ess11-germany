@@ -1,0 +1,7 @@
+label,explanatory_variable,correlation_with_democracy_satisfaction
+Political efficacy index,political_efficacy_index,0.383
+Social trust index,social_trust_index,0.341
+Income feeling,hincfel,-0.195
+Left-right placement,lrscale,-0.163
+Years of education,eduyrs,0.153
+Age,agea,-0.076

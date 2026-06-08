@@ -1,0 +1,3 @@
+model,outcome,n_observations,r_squared,adj_r_squared,strongest_predictor,main_interpretation
+Democracy satisfaction,stfdem,2064,0.254,0.251,Political efficacy,Political efficacy and social trust are the strongest predictors of democratic satisfaction.
+Trust in political parties,trstprt,2064,0.281,0.278,Political efficacy,Political efficacy and social trust are the strongest predictors of party trust.

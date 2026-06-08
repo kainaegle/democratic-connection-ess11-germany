@@ -1,0 +1,19 @@
+term,coefficient,p_value,conf_low,conf_high,model
+Intercept,5.363,0.0,5.023,5.703,Democracy satisfaction
+C(gndr)[T.2.0],-0.087,0.38291,-0.282,0.108,Democracy satisfaction
+political_efficacy_index_z,0.758,0.0,0.647,0.87,Democracy satisfaction
+social_trust_index_z,0.626,0.0,0.514,0.738,Democracy satisfaction
+hincfel_z,-0.257,0.0,-0.363,-0.151,Democracy satisfaction
+lrscale_z,-0.246,1e-05,-0.357,-0.135,Democracy satisfaction
+eduyrs_z,-0.051,0.32778,-0.154,0.052,Democracy satisfaction
+agea_z,0.026,0.60638,-0.072,0.123,Democracy satisfaction
+vote_binary,0.327,0.06767,-0.024,0.677,Democracy satisfaction
+Intercept,3.458,0.0,3.174,3.742,Trust in political parties
+C(gndr)[T.2.0],0.267,0.00127,0.105,0.43,Trust in political parties
+political_efficacy_index_z,0.73,0.0,0.633,0.826,Trust in political parties
+social_trust_index_z,0.596,0.0,0.505,0.687,Trust in political parties
+hincfel_z,-0.07,0.12063,-0.158,0.018,Trust in political parties
+lrscale_z,-0.119,0.00594,-0.204,-0.034,Trust in political parties
+eduyrs_z,-0.06,0.20747,-0.154,0.033,Trust in political parties
+agea_z,-0.149,0.00039,-0.231,-0.067,Trust in political parties
+vote_binary,0.372,0.01329,0.077,0.666,Trust in political parties

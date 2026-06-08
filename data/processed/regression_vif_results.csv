@@ -1,0 +1,9 @@
+variable,vif,vif_interpretation
+political_efficacy_index_z,1.41,low multicollinearity
+social_trust_index_z,1.14,low multicollinearity
+hincfel_z,1.12,low multicollinearity
+lrscale_z,1.06,low multicollinearity
+eduyrs_z,1.33,low multicollinearity
+agea_z,1.1,low multicollinearity
+vote_binary,1.12,low multicollinearity
+gender_numeric,1.07,low multicollinearity

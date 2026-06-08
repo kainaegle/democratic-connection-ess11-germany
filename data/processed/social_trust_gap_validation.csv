@@ -1,0 +1,5 @@
+outcome,variable,groups,n_total,mean_low_social_trust,mean_medium_social_trust,mean_high_social_trust,median_low_social_trust,median_medium_social_trust,median_high_social_trust,kruskal_h,p_value,epsilon_squared,effect_size_interpretation
+Democracy satisfaction,stfdem,"Low social trust, Medium social trust, High social trust",2399,4.7,5.96,6.61,5.0,6.0,7.0,224.76,0.0,0.093,medium
+Trust in parliament,trstprl,"Low social trust, Medium social trust, High social trust",2402,3.93,5.4,6.04,4.0,6.0,6.0,267.99,0.0,0.111,medium
+Trust in politicians,trstplt,"Low social trust, Medium social trust, High social trust",2401,2.96,4.22,5.04,3.0,4.0,5.0,318.95,0.0,0.132,medium
+Trust in political parties,trstprt,"Low social trust, Medium social trust, High social trust",2391,3.07,4.19,4.84,3.0,4.0,5.0,277.28,0.0,0.115,medium

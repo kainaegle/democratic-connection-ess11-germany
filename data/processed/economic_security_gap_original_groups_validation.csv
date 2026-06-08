@@ -1,0 +1,5 @@
+outcome,variable,groups,n_total,n_living_comfortably,n_coping,n_difficult,n_very_difficult,mean_living_comfortably,mean_coping,mean_difficult,mean_very_difficult,kruskal_h,p_value,epsilon_squared,effect_size_interpretation
+Democracy satisfaction,stfdem,"Coping, Difficult, Living comfortably, Very difficult",2392,1192,1023,139,38,6.17,5.33,4.77,4.26,85.84,0.0,0.035,small
+Trust in parliament,trstprl,"Coping, Difficult, Living comfortably, Very difficult",2395,1187,1026,142,40,5.5,4.69,4.24,3.42,80.37,0.0,0.032,small
+Trust in politicians,trstplt,"Coping, Difficult, Living comfortably, Very difficult",2394,1189,1026,139,40,4.37,3.73,3.06,3.02,72.28,0.0,0.029,small
+Trust in political parties,trstprt,"Coping, Difficult, Living comfortably, Very difficult",2384,1181,1025,139,39,4.25,3.77,3.32,3.05,48.85,0.0,0.019,small

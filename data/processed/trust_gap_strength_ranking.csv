@@ -1,0 +1,6 @@
+trust_gap,strongest_outcome,effect_size_metric,effect_size_value,effect_size_interpretation,main_pattern
+Participation Gap,Trust in parliament,Cohen's d,0.59,medium,Voters show higher democratic satisfaction and institutional trust than non-voters.
+Political Efficacy Gap,Trust in parliament,epsilon-squared,0.185,large,Higher perceived political efficacy is associated with higher democratic satisfaction and institutional trust.
+Social Trust Gap,Trust in politicians,epsilon-squared,0.132,medium,Higher social trust is associated with higher democratic satisfaction and institutional trust.
+Economic Security Gap,Democracy satisfaction,Cohen's d,0.44,small,Respondents who are economically secure or coping show higher trust than economically strained respondents.
+Political Orientation Pattern,Trust in parliament,epsilon-squared,0.037,small,"Democratic satisfaction and trust differ across left-right self-placement groups, but effects are small."
