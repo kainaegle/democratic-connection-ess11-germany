@@ -1,0 +1,4 @@
+component,explained_variance_ratio,explained_variance_percent,cumulative_explained_variance_percent
+PC1,0.362,36.178,36.2
+PC2,0.151,15.056,51.2
+PC3,0.129,12.879,64.1

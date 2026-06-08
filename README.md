@@ -1,554 +1,555 @@
-- Here, we should provide all info to make sure other ppl are able to recreate the process/product based on information 
-- Also check ppt on capstone with different steps
-- Also check best practices
-- Clean and spiced-up github repo
-
-
 # What Builds Democratic Connection?
 
-A data-driven capstone project analyzing party trust, political efficacy and social confidence in Germany using European Social Survey Round 11 data.
+A data-driven analysis of democratic satisfaction, party trust, political efficacy, social trust and political participation in Germany using European Social Survey Round 11 data.
 
-## 1. Project Summary
+---
 
-This project investigates where democratic connection weakens in Germany.
+## 1. Project Overview
 
-Instead of focusing only on general satisfaction with democracy, the analysis looks at:
+This project investigates what builds or weakens democratic connection in Germany.
 
-- trust in political parties
-- trust in politicians
-- trust in parliament
-- political efficacy
-- social trust
-- voting behavior
-- subjective economic security
-- political self-placement
+The core assumption is that democratic disconnection is not one single problem. It can appear in different forms:
 
-The goal is to identify early patterns that may help democratic actors better understand different forms of democratic disconnection and develop more evidence-based political, civic and communication strategies.
-
-## 2. Problem Statement
-
-Democratic parties and institutions face increasing pressure from declining trust, political disengagement and the rise of anti-system narratives. However, low trust does not necessarily mean that people reject democracy itself.
-
-The core problem addressed in this project is the gap between democratic satisfaction, trust in political actors and citizens’ perceived ability to influence politics.
+- low satisfaction with democracy
+- low trust in political parties and politicians
+- low perceived political efficacy
+- low social trust
+- subjective economic strain
+- political disengagement or non-voting
 
 The project therefore asks:
 
-**Where does democratic connection weaken, and which social, political and participatory factors are associated with lower trust in democratic institutions and political parties?**
+> What factors are associated with democratic satisfaction, party trust and political participation in Germany?
 
-## 3. Core Advisory Logic
+The goal is not only to describe political attitudes, but to identify meaningful trust gaps and translate them into evidence-informed strategic implications for democratic actors, political communication, civic engagement and public institutions.
 
-This project does not simply assume that parties need better communication.
+---
 
-The guiding logic is:
+## 2. Project Context
 
-**Different trust problems may require different democratic responses.**
+Public debates about democratic crisis often focus on election results, polarization or support for anti-democratic actors.
 
-For example:
+This project takes a broader analytical perspective.
 
-- Low party trust may require more transparency, credibility and accountability.
-- Low political efficacy may require more visible participation and responsiveness.
-- Low social trust may require broader social confidence-building.
-- Low participation may require democratic re-engagement before election campaigns.
-- Economic insecurity may require policy responses that connect material security with democratic trust.
+Instead of asking only whether people vote or where they place themselves politically, it asks whether people feel politically heard, socially connected and institutionally represented.
 
-## 4. Stakeholders
+The guiding idea is:
 
-The project is relevant for:
+> Different democratic trust problems require different democratic responses.
 
-- democratic political parties
-- political foundations
-- think tanks
-- civic education organizations
-- public institutions working on democratic resilience
-- campaign, participation and strategy teams
-- policy advisors
-- political communication professionals
+This means that non-voters, disappointed voters and democratically connected citizens should not be treated as one homogeneous group.
 
-The primary target users are actors who need evidence-based insights into democratic trust, political participation and voter-oriented strategy.
+---
 
-## 5. Data Source
+## 3. Data Source
 
-The main data source is the **European Social Survey Round 11 integrated dataset**.
+The project uses the official European Social Survey Round 11 integrated dataset, filtered for Germany.
 
-Source: https://www.europeansocialsurvey.org/
-
-The analysis currently focuses on the Germany subset.
-
-Current dataset status:
-
-- Full ESS11 dataset: 50,116 respondents
-- Full ESS11 variables: 691 variables
+- Source: European Social Survey Round 11
+- Main country subset: Germany
+- Full ESS11 integrated dataset: 50,116 respondents
 - Germany subset: 2,420 respondents
-- Extended clean analysis dataset: 2,004 respondents
-- Raw format: SPSS `.sav`
-- Main tools: Python, pandas, pyreadstat, matplotlib
-- Planned tools: Tableau and/or Streamlit for dashboarding
+- Extended clean analysis dataset: approximately 2,004 respondents
+- Regression dataset: 2,064 respondents
+- Raw data format: SPSS `.sav`
+- Main tools: Python, pandas, scipy, statsmodels, scikit-learn, matplotlib, Plotly and Streamlit
 
-Raw ESS data is not included in this repository. It can be downloaded from the official ESS Data Portal.
+Raw ESS data is not included in this repository. It can be downloaded from the official ESS Data Portal:
 
-## 6. Key Variables
+https://www.europeansocialsurvey.org/data/
 
-### 6.1 Main Outcome Variables
+---
 
-- `stfdem`: Satisfaction with the way democracy works
-- `trstprl`: Trust in parliament
-- `trstplt`: Trust in politicians
-- `trstprt`: Trust in political parties
+## 4. Main Research Question
 
-### 6.2 Main Explanatory and Segmentation Variables
+The main research question is:
 
-- `vote`: Voting behavior in the last national election
-- `hincfel`: Feeling about household income
-- `lrscale`: Left-right political self-placement
-- `eduyrs`: Years of education
-- `agea`: Age
-- `gndr`: Gender
-- `ppltrst`: Most people can be trusted
-- `pplfair`: Most people try to be fair
-- `pplhlp`: Most people try to be helpful
-- `psppsgva`: Political system allows people to have a say
-- `psppipla`: Political system allows people to influence politics
-- `cptppola`: Confidence in own ability to participate in politics
-- `actrolga`: Ability to take active role in political group
+> Which factors are associated with democratic satisfaction, trust in political parties and democratic participation in Germany?
 
-## 7. Research Questions
+The project focuses on five analytical dimensions:
 
-1. Is trust in political parties and politicians lower than trust in other institutions?
-2. Do non-voters show lower democratic satisfaction and lower institutional trust than voters?
-3. Is perceived political efficacy associated with democratic satisfaction and institutional trust?
-4. Is social trust associated with democratic satisfaction and institutional trust?
-5. How are economic security, education, age and political orientation related to democratic trust patterns?
-6. Can these patterns be translated into useful democratic trust profiles for strategic analysis?
+1. political participation
+2. political efficacy
+3. social trust
+4. subjective economic security
+5. political orientation
 
-## 8. Working Hypotheses
+---
 
-### H1: Party-Trust Gap
+## 5. Key Variables
 
-Trust in political parties and politicians is lower than trust in other institutions and lower than general satisfaction with democracy.
+### 5.1 Main outcome variables
 
-### H2: Participation Gap
+The main outcome variables represent different dimensions of democratic trust and democratic satisfaction.
 
-Respondents who did not vote in the last national election show lower democratic satisfaction and lower institutional trust than respondents who voted.
+| Concept | ESS variable | Description |
+|---|---|---|
+| Democratic satisfaction | `stfdem` | Satisfaction with the way democracy works |
+| Trust in parliament | `trstprl` | Trust in country's parliament |
+| Trust in politicians | `trstplt` | Trust in politicians |
+| Trust in political parties | `trstprt` | Trust in political parties |
 
-### H3: Political Efficacy Gap
+### 5.2 Main explanatory variables
 
-Respondents with lower perceived political efficacy show lower democratic satisfaction and lower trust in parliament, politicians and political parties.
+The explanatory variables represent possible factors associated with democratic connection.
 
-### H4: Social Trust Gap
+| Concept | Variable / index | Description |
+|---|---|---|
+| Political efficacy | `political_efficacy_index` | Average of selected variables measuring perceived say, influence and ability to participate |
+| Social trust | `social_trust_index` | Average of trust, fairness and helpfulness items |
+| Economic security | `hincfel` | Subjective feeling about household income |
+| Political orientation | `lrscale` | Left-right self-placement from 0 to 10 |
+| Voting behavior | `vote_clean`, `vote_binary` | Voted or did not vote in the last national election |
+| Controls | `agea`, `gndr`, `eduyrs` | Age, gender and years of education |
 
-Respondents with lower social trust show lower democratic satisfaction and lower institutional trust.
+---
 
-### H5: Economic Security Gap
+## 6. Analytical Pipeline
 
-Respondents who feel economically strained show lower institutional trust than respondents who feel economically secure.
+The project follows a structured analytical pipeline:
 
-### H6: Political Orientation Gap
+```mermaid
+flowchart TD
 
-Democratic satisfaction and institutional trust differ across left-right self-placement groups.
-
-This will be interpreted carefully and without stigmatizing political groups.
-
-## 9. KPIs and Analytical Metrics
-
-This project uses analytical KPIs rather than business KPIs. The KPIs are designed to measure where democratic connection appears stronger or weaker in the ESS11 Germany data.
-
-| KPI | SMART Formulation | ESS Variables | Purpose |
-|---|---|---|---|
-| Party-Trust Gap | Measure the mean difference between trust in political parties/politicians and trust in other institutions in the ESS11 Germany sample. | `trstprt`, `trstplt`, `trstprl`, `trstlgl`, `trstplc` | Identify whether trust is especially weak toward political actors. |
-| Participation Gap | Compare mean democratic satisfaction and institutional trust between voters and non-voters in the cleaned Germany dataset. | `vote_clean`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Assess whether non-voting is associated with weaker democratic connection. |
-| Political Efficacy Gap | Compare mean democratic satisfaction and institutional trust across low, medium and high political efficacy groups. | `political_efficacy_index`, `efficacy_group`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Assess whether perceived political influence is associated with democratic trust. |
-| Social Trust Gap | Compare mean democratic satisfaction and institutional trust across low, medium and high social trust groups. | `social_trust_index`, `social_trust_group`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Explore whether democratic trust is linked to broader social confidence. |
-| Economic Security Gap | Compare mean democratic satisfaction and institutional trust across household income-feeling groups. | `hincfel`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Assess whether subjective economic strain is associated with lower democratic trust. |
-| Political Orientation Pattern | Compare democratic satisfaction and institutional trust across grouped left-right self-placement categories. | `lr_group`, `lrscale`, `stfdem`, `trstprl`, `trstplt`, `trstprt` | Explore whether trust patterns differ across political self-placement groups. |
-| Statistical Validation | Validate the strongest EDA patterns using appropriate statistical tests and effect sizes before final interpretation. | selected cleaned variables | Ensure that conclusions are not based only on visual inspection. |
-| Dashboard Readiness | Produce at least one dashboard-ready clean dataset and a set of clear visual outputs for final presentation. | `df_extended`, exported CSV, PNG visualizations | Support communication of findings to political and civic stakeholders. |
-
-## 10. Data Pipeline Draft
-
-The project follows a structured data analytics pipeline..
-
-### 10.1 Collect
-
-Download the official ESS11 integrated dataset.
-
-### 10.2 Store
-
-Store raw data locally in `data/raw/`.
-
-Raw ESS data is excluded from GitHub.
-
-### 10.3 Load
-
-Load the SPSS `.sav` file into Python using `pyreadstat`.
-
-### 10.4 Inspect
-
-Check:
-
-- dataset size
-- variable labels
-- value labels
-- missing values
-- data types
-- country coverage
-
-### 10.5 Clean
-
-Clean and prepare the data by:
-
-- filtering the dataset for Germany
-- selecting relevant variables
-- checking missing values
-- recoding voting behavior
-- exporting clean working datasets
-
-### 10.6 Transform
-
-Create derived variables and indices:
-
-- clean voting behavior variable
-- social trust index
-- social trust groups
-- political efficacy index
-- political efficacy groups
-- grouped left-right political orientation
-- extended clean analysis dataset
-
-### 10.7 Analyze
-
-Conduct:
-
-- exploratory data analysis
-- descriptive statistics
-- correlation analysis
-- group comparisons
-- first analytical interpretation
-
-### 10.8 Visualize
-
-Create early visualizations for core trust gaps:
-
-- institutional trust ranking
-- political efficacy gap
-- social trust gap
-- participation gap
-
-### 10.9 Validate
-
-Planned next step:
-
-- statistical group comparison tests
-- effect sizes
-- regression models
-- robustness checks
-
-### 10.10 Communicate
-
-Translate findings into:
-
-- dashboard
-- final presentation
-- evidence-based strategic interpretation
-- cautious policy and strategy recommendations
-
-## 11. Current Status
-
-Completed:
-
-- loaded and inspected ESS11 integrated data
-- filtered Germany subset
-- created a variable overview and descriptive statistics snapshot
-- exported dataset snapshot to Excel
-- selected first core variables
-- checked missing values and valid sample sizes
-- cleaned voting behavior variable
-- created social trust index
-- created political efficacy index
-- created grouped political orientation variable
-- built extended clean analysis dataset
-- created first early visualizations
-- set up GitHub repository structure
-
-## 12. Early EDA Findings
-
-The first exploratory analysis suggests several relevant patterns.
-
-### 12.1 Party-Trust Gap
-
-Trust in political parties and politicians is lower than trust in parliament, the legal system and the police.
-
-This suggests that the project should not only focus on general democratic satisfaction, but especially on trust in political actors and representative institutions.
-
-### 12.2 Participation Gap
-
-Non-voters show lower democratic satisfaction and lower trust in parliament, politicians and political parties than voters.
-
-This suggests that non-voting may be linked to weaker democratic connection.
-
-### 12.3 Political Efficacy Gap
-
-Respondents with higher perceived political efficacy show higher democratic satisfaction and higher institutional trust.
-
-This suggests that perceived political influence may be an important factor in democratic trust-building.
-
-### 12.4 Social Trust Gap
-
-Respondents with higher social trust also report higher democratic satisfaction and higher institutional trust.
-
-This suggests that democratic confidence may be connected not only to institutions, but also to broader social confidence.
-
-### 12.5 Methodological Caution
-
-These findings are exploratory and show associations, not causality.
-
-The next analytical step is statistical validation.
-
-## 13. Early Visualizations
-
-The current notebook includes early visualizations on:
-
-- institutional trust ranking
-- political efficacy gap
-- social trust gap
-- participation gap
-
-Visual outputs are stored in the `visualizations/` folder.
-
-## 14. Repository Structure
-
-```text
-capstone-democratic-connection-ess11/
-│
-├── README.md
-├── requirements.txt
-├── .gitignore
-│
-├── data/
-│   ├── raw/
-│   ├── clean/
-│   └── processed/
-│
-├── notebooks/
-│   └── 01_ess11_germany_eda.ipynb
-│
-├── visualizations/
-│
-├── reports/
-│
-├── docs/
-│
-└── presentation/
+A[ESS Round 11 Germany Data] --> B[Variable Selection]
+B --> C[Data Cleaning]
+C --> D[Index Construction]
+D --> E[Exploratory Data Analysis]
+E --> F[Hypothesis Testing]
+F --> G[Effect Size Interpretation]
+G --> H[Regression Models]
+H --> I[Democratic Connection Profiles]
+I --> J[PCA Visualization]
+J --> K[Streamlit App and Strategic Implications]
 ```
 
-## 16. Planned Next Steps
+The logic is:
 
-The next project phase will move from exploratory data analysis to statistical validation, dashboard development and strategic interpretation.
+1. select relevant ESS variables
+2. clean and document the Germany subset
+3. construct political efficacy and social trust indices
+4. explore descriptive trust patterns
+5. test predefined trust gap hypotheses
+6. estimate effect sizes
+7. run regression models
+8. create exploratory Democratic Connection Profiles
+9. visualize profile structure with PCA
+10. translate findings into strategic implications
 
-### 16.1 Statistical Validation
+---
 
-The first EDA results show promising patterns, but they still need to be tested more systematically.
+## 7. Hypotheses
 
-Planned methods:
+The project tests five main hypotheses.
 
-- group comparison tests
-- confidence intervals
-- effect sizes
-- correlation analysis
-- regression models
+### H1: Participation Gap
 
-The goal is to assess whether the observed trust gaps are robust enough to support careful interpretation.
+Respondents who voted in the last national election show higher democratic satisfaction and institutional trust than respondents who did not vote.
 
-### 16.2 Group Comparison Tests
+### H2: Political Efficacy Gap
 
-Planned group comparisons:
+Respondents with higher perceived political efficacy show higher democratic satisfaction and higher trust in parliament, politicians and political parties.
 
-- voters vs. non-voters
-- low, medium and high political efficacy groups
-- low, medium and high social trust groups
-- income-feeling groups
-- left, center and right self-placement groups
+### H3: Social Trust Gap
 
-Possible tests:
+Respondents with higher social trust show higher democratic satisfaction and higher institutional trust.
+
+### H4: Economic Security Gap
+
+Respondents who feel economically secure show higher democratic satisfaction and institutional trust than respondents who feel economically strained.
+
+### H5: Political Orientation Pattern
+
+Democratic satisfaction and institutional trust differ across left, center and right self-placement groups.
+
+This hypothesis is interpreted carefully. Political orientation is treated as an analytical variable, not as a normative judgement.
+
+---
+
+## 8. Methods
+
+### 8.1 Descriptive Analysis
+
+The project first explores:
+
+- sample size
+- missing values
+- variable distributions
+- institutional trust rankings
+- group means across voting behavior, political efficacy, social trust, income feeling and political orientation
+
+### 8.2 Index Construction
+
+Two main indices are constructed.
+
+#### Political Efficacy Index
+
+The political efficacy index combines variables measuring whether respondents feel that:
+
+- the political system allows people to have a say
+- the political system allows people to influence politics
+- they are confident in their own ability to participate
+- they are able to take an active role in a political group
+
+Higher values indicate higher perceived political efficacy.
+
+#### Social Trust Index
+
+The social trust index combines variables measuring whether respondents think that:
+
+- most people can be trusted
+- most people try to be fair
+- most people are helpful
+
+Higher values indicate higher social trust.
+
+### 8.3 Group Comparison Tests
+
+The project uses:
 
 - Welch’s t-test for two-group comparisons
-- ANOVA or Kruskal-Wallis tests for three or more groups
-- post-hoc comparisons if group differences are meaningful
+- Cohen’s d for two-group effect sizes
+- Kruskal-Wallis tests for comparisons with more than two groups
+- epsilon-squared for approximate non-parametric effect sizes
 
-### 16.3 Effect Sizes
+The tests are used to assess whether observed trust gaps are statistically meaningful and practically relevant.
 
-Statistical significance alone is not enough.
+### 8.4 Regression Models
 
-The project will also calculate effect sizes to understand how large and practically relevant the observed differences are.
+Two OLS regression models are estimated:
 
-Possible effect size indicators:
+1. outcome: satisfaction with democracy
+2. outcome: trust in political parties
 
-- Cohen’s d for two-group comparisons
-- eta-squared or epsilon-squared for multi-group comparisons
-- standardized regression coefficients for regression models
+Predictors include:
 
-### 16.4 Regression Models
-
-Regression models will be used to assess whether key associations remain visible when controlling for other variables.
-
-Possible outcome variables:
-
-- `stfdem`: satisfaction with democracy
-- `trstprt`: trust in political parties
-- `trstplt`: trust in politicians
-- `trstprl`: trust in parliament
-
-Possible explanatory variables:
-
-- political efficacy index
-- social trust index
-- voting behavior
-- household income feeling
-- left-right self-placement
+- political efficacy
+- social trust
+- income feeling
+- left-right placement
 - education
 - age
 - gender
+- voting behavior
 
-### 16.5 Weighted Robustness Checks
+Robust HC3 standard errors are used.
 
-ESS includes survey weights.
+The models are interpreted as associational models, not causal models.
 
-The project should test whether core descriptive findings remain similar when applying relevant ESS weights.
+### 8.5 Regression Diagnostics
 
-This is especially important if results are interpreted as representative patterns for Germany.
+Regression diagnostics include:
 
-### 16.6 Optional Country Comparison
+- Variance Inflation Factor checks for multicollinearity
+- residual diagnostics
+- observed-versus-predicted plots
+- model fit comparison
 
-If time allows, the project may compare Germany with selected European countries.
+The diagnostics are used to assess whether the regression models are sufficiently robust for cautious interpretation.
 
-Possible comparison countries:
+### 8.6 Clustering
 
-- France
-- Italy
-- Spain
-- Poland
-- Sweden
-- Netherlands
+K-Means clustering is used to identify exploratory Democratic Connection Profiles.
 
-This extension should only be included if the Germany analysis is already stable and well explained.
-
-### 16.7 Optional Clustering
-
-A simple clustering approach may be explored to identify democratic trust profiles.
-
-Possible input variables:
+The clustering variables are:
 
 - democratic satisfaction
-- trust in parties
-- trust in politicians
-- political efficacy index
-- social trust index
-- voting behavior
+- party trust
+- political efficacy
+- social trust
 - income feeling
+- left-right placement
+- voting participation
 
-This is optional and should only be used if it produces interpretable and methodologically defensible profiles.
+The final solution uses three clusters because this solution is strategically interpretable and separates different forms of democratic connection and disconnection.
 
-### 16.8 Dashboard Development
+The clusters are interpreted as exploratory segmentation patterns, not as fixed social groups.
 
-The final project output should include a dashboard prototype.
+### 8.7 PCA Visualization
 
-Possible tools:
+Principal Component Analysis is used to visualize the multidimensional profile structure.
 
-- Tableau
-- Streamlit
+PCA is not used to prove the clusters. It is used as a visual aid to show how respondents and profiles are positioned in a reduced two- or three-dimensional space.
 
-The dashboard should show:
+---
 
-- institutional trust ranking
-- participation gap
-- political efficacy gap
-- social trust gap
-- income/security patterns
-- optional country comparison
-- optional trust profiles
+## 9. Key Findings
 
-### 16.9 Strategic Interpretation
+### 9.1 Institutional Trust Pattern
 
-The strongest validated findings will be translated into cautious strategic implications for democratic actors.
+Trust in political parties and politicians is lower than trust in other institutions such as the police or the legal system.
 
-The project will avoid causal overclaims.
+This supports the project’s focus on party trust and democratic connection.
 
-The final interpretation should focus on:
+### 9.2 Participation Gap
 
-- where democratic connection appears weaker
-- which groups show lower trust or lower efficacy
-- which trust gaps may require different democratic responses
-- how democratic parties and civic actors can prioritize engagement strategies more evidence-based
+Voters show higher democratic satisfaction and institutional trust than non-voters.
 
-## 17. Limitations
+The differences are statistically meaningful and show medium-sized effects.
 
-This project is exploratory and should be interpreted carefully.
+The strongest difference appears for trust in parliament.
 
-### 17.1 No Causal Claims
+### 9.3 Political Efficacy Gap
 
-The analysis is based on observational survey data.
+Political efficacy is one of the strongest signals in the analysis.
 
-This means that the project can identify associations, but it cannot prove causal effects.
+Respondents with higher political efficacy show substantially higher democratic satisfaction and higher trust in parliament, politicians and political parties.
 
-For example, the analysis may show that low political efficacy is associated with lower trust, but it cannot prove that low efficacy causes lower trust.
+The strongest effect appears for trust in parliament.
 
-### 17.2 Self-Reported Survey Data
+### 9.4 Social Trust Gap
 
-ESS data is based on self-reported answers.
+Respondents with higher social trust also show higher democratic satisfaction and institutional trust.
 
-Respondents may answer differently due to memory, social desirability, interpretation of questions or current political mood.
+The effects are consistently meaningful and support the idea that democratic trust is connected not only to institutions, but also to broader social confidence.
 
-### 17.3 Ordinal Variables
+### 9.5 Economic Security Gap
 
-Many ESS variables use ordinal scales.
+Respondents who feel economically secure show higher democratic satisfaction and institutional trust than respondents who feel economically strained.
 
-Examples include:
+However, the effect sizes are smaller than for political efficacy, social trust and voting participation.
 
-- trust scales from 0 to 10
-- political efficacy scales from 1 to 5
-- household income feeling from 1 to 4
+### 9.6 Political Orientation Pattern
 
-Means and correlations are useful for exploration, but some variables require careful interpretation and may need non-parametric tests.
+Democratic satisfaction and institutional trust differ across left-right self-placement groups.
 
-### 17.4 Exploratory Indices
+However, effect sizes are comparatively small. Political orientation matters, but it is not the strongest explanatory dimension in this analysis.
 
-The social trust index and political efficacy index are simple constructed indicators.
+### 9.7 Correlation Analysis
 
-They are useful for exploratory analysis, but they should be interpreted as analytical approximations rather than perfect measures.
+The correlation analysis confirms that political efficacy and social trust have the strongest associations with the main democratic trust outcomes.
 
-Further validation may be needed.
+Political efficacy has the strongest correlation with trust in parliament, trust in politicians, trust in political parties and democratic satisfaction.
 
-### 17.5 No Full Causal Model of Voting Behavior
+Social trust is the second strongest explanatory dimension across most outcomes.
 
-The project does not claim to explain voting behavior or party choice fully.
+Subjective income feeling, left-right placement, education and age are also associated with democratic trust, but the correlations are weaker.
 
-Voting behavior is used mainly as an indicator of political participation, not as a complete electoral model.
+### 9.8 Regression Results
 
-### 17.6 Political Sensitivity
+Regression models confirm the central analytical direction.
 
-Political trust, party trust and political orientation are sensitive topics.
+Political efficacy and social trust remain the strongest predictors of both democratic satisfaction and trust in political parties, even when controlling for income feeling, left-right placement, education, age, gender and voting behavior.
 
-The analysis will avoid stigmatizing groups and will use careful, non-sensationalist wording.
+The models explain around one quarter of the variation in the outcomes, which is meaningful for cross-sectional survey data.
 
-### 17.7 Limited Scope
+### 9.9 Democratic Connection Profiles
 
-The first project phase focuses on Germany and ESS11.
+The cluster analysis identifies three exploratory Democratic Connection Profiles.
 
-Additional countries, earlier ESS rounds, party manifestos or programme comparisons may add value, but they can also increase complexity.
+| Profile | Share | Main pattern |
+|---|---:|---|
+| Connected Democratic Core | ~50% | Higher democratic satisfaction, higher party trust, higher political efficacy, higher social trust and voting participation |
+| Disappointed Democratic Participants | ~39% | Still voting, but low democratic satisfaction, low party trust, lower political efficacy and lower social trust |
+| Disengaged Non-voters | ~11% | No reported voting participation, low political efficacy and low party trust |
 
-These extensions will only be included if time allows and if they strengthen the main analytical storyline.
+The most important insight is:
 
-### 17.8 Recommendations Depend on Validation
+> Democratic disconnection is not only about non-voters. A large group still participates electorally while already showing low democratic satisfaction, low party trust and lower political efficacy.
 
-Final recommendations will only be based on patterns that remain meaningful after further analysis.
+### 9.10 PCA Results
 
-The project will avoid statements such as:
+PCA helps visualize the multidimensional profile structure.
 
-- “X causes distrust.”
-- “Group Y rejects democracy.”
-- “Parties simply need better communication.”
+The first principal component captures a broad democratic connection dimension. Higher values are associated with higher democratic satisfaction, party trust, political efficacy, social trust and voting participation.
 
-Instead, the project will use cautious wording such as:
+The PCA map supports the profile logic visually, but the profiles overlap. This is expected in social survey data and confirms that the profiles should be interpreted as exploratory segmentation patterns, not sharply separated social groups.
 
-- “X is associated with lower trust.”
-- “This pattern suggests a possible engagement challenge.”
-- “Different trust gaps may require different democratic responses.”
+---
+
+## 10. Strategic Interpretation
+
+The findings suggest that democratic actors should not rely on one generic trust-building strategy.
+
+Different profiles imply different strategic priorities.
+
+### 10.1 Connected Democratic Core
+
+Strategic challenge:
+
+- maintain trust
+- avoid taking democratic support for granted
+
+Possible response:
+
+- credible delivery
+- transparent communication
+- meaningful participation opportunities
+
+### 10.2 Disappointed Democratic Participants
+
+Strategic challenge:
+
+- rebuild trust before disappointment turns into deeper disengagement
+
+Possible response:
+
+- visible problem-solving
+- local listening formats
+- credible explanations of political constraints and progress
+- stronger responsiveness and participation channels
+
+### 10.3 Disengaged Non-voters
+
+Strategic challenge:
+
+- lower barriers to re-engagement
+- rebuild basic political efficacy
+
+Possible response:
+
+- outreach beyond traditional party channels
+- low-threshold civic engagement
+- community-based trust-building
+- practical participation formats
+
+---
+
+## 11. Repository Structure
+
+```text
+.
+├── app/
+│   └── app.py
+├── data/
+│   ├── raw/
+│   │   └── ESS11e04_1.sav
+│   ├── clean/
+│   │   ├── ess11_germany_core_clean.csv
+│   │   ├── ess11_germany_extended_clean.csv
+│   │   ├── ess11_germany_regression_dataset.csv
+│   │   └── ess11_germany_democratic_connection_profiles.csv
+│   └── processed/
+│       ├── participation_gap_validation.csv
+│       ├── political_efficacy_gap_validation.csv
+│       ├── social_trust_gap_validation.csv
+│       ├── economic_security_gap_binary_validation.csv
+│       ├── economic_security_gap_original_groups_validation.csv
+│       ├── political_orientation_pattern_validation.csv
+│       ├── trust_gap_strength_ranking.csv
+│       ├── analytical_priority_table.csv
+│       ├── final_variable_correlation_matrix.csv
+│       ├── outcome_correlation_summary.csv
+│       ├── party_trust_correlation_ranking.csv
+│       ├── democracy_satisfaction_correlation_ranking.csv
+│       ├── regression_results_democracy_satisfaction_party_trust.csv
+│       ├── regression_model_comparison.csv
+│       ├── regression_diagnostic_summary.csv
+│       ├── regression_vif_results.csv
+│       ├── democratic_connection_profile_summary.csv
+│       ├── democratic_connection_profile_summary_final.csv
+│       ├── democratic_connection_profile_z_summary.csv
+│       ├── democratic_connection_profile_strategy_table.csv
+│       ├── pca_democratic_connection_profiles.csv
+│       ├── pca_explained_variance.csv
+│       └── pca_component_loadings.csv
+├── notebooks/
+│   └── ESS11_Data_Snapshot_Germany.ipynb
+├── visualizations/
+│   └── exported charts and figures
+├── README.md
+└── requirements.txt
+```
+
+Note: The raw ESS `.sav` file is not included in this repository and needs to be downloaded separately from the ESS Data Portal.
+
+---
+
+## 12. Main Outputs
+
+The project currently produces:
+
+- cleaned Germany analysis datasets
+- statistical validation tables
+- effect size summaries
+- correlation outputs
+- regression results
+- regression diagnostics
+- Democratic Connection Profile tables
+- PCA outputs
+- static visualizations
+- interactive Streamlit app prototype
+
+---
+
+## 13. How to Run the Project
+
+### 13.1 Install Dependencies
+
+```bash
+pip install pandas numpy scipy statsmodels scikit-learn matplotlib plotly streamlit pyreadstat openpyxl
+```
+
+### 13.2 Run the Notebook
+
+Open the notebook in Jupyter or VS Code and run the cells from top to bottom.
+
+The notebook creates cleaned datasets and processed output tables.
+
+### 13.3 Run the Streamlit App
+
+From the project root folder, run:
+
+```bash
+streamlit run app/app.py
+```
+
+The project root folder is the folder that contains the `app`, `data`, `notebooks` and `visualizations` directories.
+
+---
+
+## 14. Limitations
+
+This project has several important limitations.
+
+First, the analysis is based on cross-sectional survey data. Therefore, results show associations, not causal effects.
+
+Second, the cluster analysis is exploratory. The Democratic Connection Profiles should be interpreted as analytical segmentation patterns, not as fixed population types.
+
+Third, PCA is used as a visualization aid. It helps communicate multidimensional patterns but does not prove cluster validity.
+
+Fourth, the analysis focuses on selected ESS variables. Other factors such as media use, regional context, migration attitudes, party preference or longitudinal changes may further improve the analysis.
+
+Fifth, the analysis currently focuses on Germany. Cross-country comparison may be added later as an extension.
+
+Sixth, ESS survey data is based on self-reported attitudes and behavior. This can introduce measurement limitations, recall bias or social desirability bias.
+
+---
+
+## 15. Ethical and Interpretative Note
+
+The project does not classify individuals as democrats or anti-democrats.
+
+The Democratic Connection Profiles are exploratory analytical profiles based on selected survey indicators. They are used to understand patterns of democratic satisfaction, trust, efficacy and participation.
+
+Political orientation is treated carefully and descriptively. The project does not make stigmatizing claims about political groups.
+
+All results are interpreted as evidence-informed associations, not as deterministic or causal conclusions.
+
+---
+
+## 16. Next Steps
+
+Potential next steps are:
+
+- improve the Streamlit app layout and interactivity
+- integrate interactive PCA visualizations
+- refine final presentation storytelling
+- improve visual design and methodological notes in charts
+- add optional cross-country comparison
+- test additional variables such as media use or political interest
+- prepare final recommendations for democratic engagement strategy
+
+---
+
+## 17. Core Conclusion
+
+The project shows that democratic disconnection in Germany is not one single problem.
+
+The strongest analytical signals are political efficacy and social trust.
+
+Non-voting matters, but the more strategically important finding is that a large group still votes while already showing low democratic satisfaction, low party trust and lower perceived political efficacy.
+
+This supports the main project argument:
+
+> To strengthen democracy, democratic actors should not only communicate better. They need to rebuild political efficacy, social confidence and credible democratic responsiveness.
