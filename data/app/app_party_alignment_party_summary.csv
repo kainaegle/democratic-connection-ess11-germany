@@ -1,0 +1,8 @@
+party,mean_alignment_score,n_dimensions,total_issues_covered,positive_dimensions,mixed_dimensions,negative_dimensions
+Die Linke,0.72,6,35,5,1,0
+SPD,0.47,6,35,3,3,0
+GRÜNE,0.38,6,35,5,0,1
+BSW,0.32,6,35,2,4,0
+CDU / CSU,-0.3,6,35,0,3,3
+FDP,-0.4,6,35,0,2,4
+AfD,-0.46,6,35,1,0,5

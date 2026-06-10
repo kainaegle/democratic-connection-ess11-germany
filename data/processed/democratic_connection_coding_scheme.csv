@@ -1,0 +1,8 @@
+dimension,label,description
+political_efficacy,Political efficacy,"Issues related to political voice, influence, participation rights and citizens' ability to shape politics."
+social_trust,Social trust,"Issues related to social cohesion, inclusion, anti-discrimination, solidarity and trust between groups."
+economic_security,Economic security,"Issues related to income, work, welfare, affordability, redistribution and material security."
+institutional_responsiveness,Institutional responsiveness,"Issues related to state capacity, service delivery, administrative responsiveness and government effectiveness."
+democratic_institutions,Democratic institutions,"Issues related to rule of law, constitutional order, democratic norms, security and institutional trust."
+participation_civic_inclusion,Participation and civic inclusion,"Issues related to voting, citizenship, civic participation, access and inclusion in democratic life."
+not_directly_related,Not directly related,Issues that are policy-relevant but not clearly linked to the democratic connection dimensions in this project.

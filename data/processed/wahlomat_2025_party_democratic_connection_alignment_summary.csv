@@ -1,0 +1,43 @@
+party_short,connection_dimension_label_refined,n_issues,mean_alignment_score,positive_alignment_count,neutral_alignment_count,negative_alignment_count,alignment_interpretation
+AfD,Democratic institutions and rule of law,9,-0.56,0,4,5,Visible negative alignment
+AfD,Direct participation / political voice,1,1.0,1,0,0,Visible positive alignment
+AfD,Economic security,10,-0.8,0,2,8,Visible negative alignment
+AfD,Institutional responsiveness,8,-0.62,0,3,5,Visible negative alignment
+AfD,Participation and civic inclusion,5,-0.8,0,1,4,Visible negative alignment
+AfD,Social trust and cohesion,2,-1.0,0,0,2,Visible negative alignment
+BSW,Democratic institutions and rule of law,9,0.11,2,6,1,Mixed or neutral alignment
+BSW,Direct participation / political voice,1,1.0,1,0,0,Visible positive alignment
+BSW,Economic security,10,0.3,6,1,3,Mixed or neutral alignment
+BSW,Institutional responsiveness,8,0.12,3,3,2,Mixed or neutral alignment
+BSW,Participation and civic inclusion,5,0.4,3,1,1,Visible positive alignment
+BSW,Social trust and cohesion,2,0.0,1,0,1,Mixed or neutral alignment
+CDU / CSU,Democratic institutions and rule of law,9,0.11,3,4,2,Mixed or neutral alignment
+CDU / CSU,Direct participation / political voice,1,-1.0,0,0,1,Visible negative alignment
+CDU / CSU,Economic security,10,-0.5,2,1,7,Visible negative alignment
+CDU / CSU,Institutional responsiveness,8,0.0,3,2,3,Mixed or neutral alignment
+CDU / CSU,Participation and civic inclusion,5,-0.4,1,1,3,Visible negative alignment
+CDU / CSU,Social trust and cohesion,2,0.0,1,0,1,Mixed or neutral alignment
+Die Linke,Democratic institutions and rule of law,9,0.33,4,4,1,Mixed or neutral alignment
+Die Linke,Direct participation / political voice,1,1.0,1,0,0,Visible positive alignment
+Die Linke,Economic security,10,1.0,10,0,0,Visible positive alignment
+Die Linke,Institutional responsiveness,8,0.62,5,3,0,Visible positive alignment
+Die Linke,Participation and civic inclusion,5,0.4,3,1,1,Visible positive alignment
+Die Linke,Social trust and cohesion,2,1.0,2,0,0,Visible positive alignment
+FDP,Democratic institutions and rule of law,9,0.33,4,4,1,Mixed or neutral alignment
+FDP,Direct participation / political voice,1,-1.0,0,0,1,Visible negative alignment
+FDP,Economic security,10,-0.8,1,0,9,Visible negative alignment
+FDP,Institutional responsiveness,8,0.0,3,2,3,Mixed or neutral alignment
+FDP,Participation and civic inclusion,5,-0.4,1,1,3,Visible negative alignment
+FDP,Social trust and cohesion,2,-0.5,0,1,1,Visible negative alignment
+GRÜNE,Democratic institutions and rule of law,9,0.56,5,4,0,Visible positive alignment
+GRÜNE,Direct participation / political voice,1,-1.0,0,0,1,Visible negative alignment
+GRÜNE,Economic security,10,0.4,7,0,3,Visible positive alignment
+GRÜNE,Institutional responsiveness,8,0.75,6,2,0,Visible positive alignment
+GRÜNE,Participation and civic inclusion,5,0.6,4,0,1,Visible positive alignment
+GRÜNE,Social trust and cohesion,2,1.0,2,0,0,Visible positive alignment
+SPD,Democratic institutions and rule of law,9,0.56,5,4,0,Visible positive alignment
+SPD,Direct participation / political voice,1,0.0,0,1,0,Mixed or neutral alignment
+SPD,Economic security,10,0.3,6,1,3,Mixed or neutral alignment
+SPD,Institutional responsiveness,8,0.75,6,2,0,Visible positive alignment
+SPD,Participation and civic inclusion,5,0.2,3,0,2,Mixed or neutral alignment
+SPD,Social trust and cohesion,2,1.0,2,0,0,Visible positive alignment

@@ -6,6 +6,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from pathlib import Path
+import base64
 
 
 # =============================================================================
@@ -29,6 +30,8 @@ PROJECT_ROOT = APP_DIR.parent
 DATA_CLEAN = PROJECT_ROOT / "data" / "clean"
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
 DATA_APP = PROJECT_ROOT / "data" / "app"
+ASSETS_DIR = APP_DIR / "assets"
+HERO_IMAGE = ASSETS_DIR / "democratic_connection_hero.png"
 
 
 # =============================================================================
@@ -66,6 +69,8 @@ st.markdown(
     }
 
     .hero {
+        position: relative;
+        overflow: hidden;
         padding: 2.1rem 2.3rem;
         border-radius: 24px;
         background:
@@ -209,33 +214,73 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 # =============================================================================
 # CONSTANTS
 # =============================================================================
 
+OKABE_ITO = {
+    "blue": "#56B4E9",
+    "green": "#009E73",
+    "yellow": "#F0E442",
+    "purple": "#CC79A7",
+    "orange": "#E69F00",
+    "vermillion": "#D55E00",
+}
+
+PROFILE_COLORS = {
+    "Connected Democratic Core": OKABE_ITO["green"],
+    "Disappointed Democratic Participants": OKABE_ITO["purple"],
+    "Disengaged Non-voters": OKABE_ITO["yellow"],
+}
+
+OUTCOME_COLORS = {
+    "Democracy satisfaction": OKABE_ITO["blue"],
+    "Trust in political parties": OKABE_ITO["purple"],
+    "Trust in parliament": OKABE_ITO["green"],
+    "Trust in politicians": OKABE_ITO["yellow"],
+}
+
+GROUP_COLORS = {
+    "Voted": OKABE_ITO["green"],
+    "Did not vote": OKABE_ITO["yellow"],
+    "Low efficacy": OKABE_ITO["purple"],
+    "Medium efficacy": OKABE_ITO["blue"],
+    "High efficacy": OKABE_ITO["green"],
+    "Low social trust": OKABE_ITO["purple"],
+    "Medium social trust": OKABE_ITO["blue"],
+    "High social trust": OKABE_ITO["green"],
+    "Secure or coping": OKABE_ITO["green"],
+    "Economically strained": OKABE_ITO["purple"],
+    "Left (0–3)": OKABE_ITO["blue"],
+    "Center (4–6)": OKABE_ITO["green"],
+    "Right (7–10)": OKABE_ITO["purple"],
+}
+
 COLOR_MAP = {
-    "Connected Democratic Core": "#009E73",
-    "Disappointed Democratic Participants": "#CC79A7",
-    "Disengaged Non-voters": "#F0E442",
-    "Political efficacy": "#56B4E9",
-    "Social trust": "#009E73",
-    "Income feeling": "#F0E442",
-    "Left-right placement": "#CC79A7",
-    "Voted": "#56B4E9",
-    "Democracy satisfaction": "#56B4E9",
-    "Trust in political parties": "#CC79A7",
-    "Trust in parliament": "#009E73",
-    "Trust in politicians": "#F0E442",
+    **PROFILE_COLORS,
+    **OUTCOME_COLORS,
+    **GROUP_COLORS,
+    "Political efficacy": OKABE_ITO["blue"],
+    "Social trust": OKABE_ITO["green"],
+    "Income feeling": OKABE_ITO["yellow"],
+    "Income difficulty": OKABE_ITO["yellow"],
+    "Left-right placement": OKABE_ITO["purple"],
+    "Voted share": OKABE_ITO["blue"],
+    "Voting participation": OKABE_ITO["yellow"],
 }
 
 PROFILE_ORDER = [
-    "Disengaged Non-voters",
-    "Disappointed Democratic Participants",
     "Connected Democratic Core",
+    "Disappointed Democratic Participants",
+    "Disengaged Non-voters",
 ]
 
 PLOT_TEMPLATE = "plotly_dark"
+ALIGNMENT_COLOR_SCALE = [
+    [0.0, "#CC79A7"],
+    [0.5, "#1F2630"],
+    [1.0, "#F0E442"]
+]
 
 
 # =============================================================================
@@ -275,11 +320,19 @@ extended_data = load_csv(DATA_CLEAN / "ess11_germany_extended_clean.csv", requir
 pca_data = load_csv(DATA_PROCESSED / "democratic_connection_profiles_pca_coordinates.csv", required=False)
 pca_variance = load_csv(DATA_PROCESSED / "democratic_connection_profiles_pca_explained_variance.csv", required=False)
 pca_loadings = load_csv(DATA_PROCESSED / "democratic_connection_profiles_pca_loadings.csv", required=False)
-
+party_alignment_long = load_csv(DATA_APP / "app_party_alignment_long.csv", required=False)
+party_alignment_matrix = load_csv(DATA_APP / "app_party_alignment_matrix.csv", required=False)
+party_alignment_summary = load_csv(DATA_APP / "app_party_alignment_party_summary.csv", required=False)
+party_dimension_evidence = load_csv(DATA_APP / "app_party_dimension_evidence_strength.csv", required=False)
 
 # =============================================================================
 # HELPER FUNCTIONS
 # =============================================================================
+
+def image_to_base64(path: Path) -> str:
+    with open(path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+
 
 def plot_layout(fig, title=None, height=520, x_title=None, y_title=None):
     fig.update_layout(
@@ -359,6 +412,35 @@ if not profile_z.empty:
 # HEADER
 # =============================================================================
 
+hero_bg = image_to_base64(HERO_IMAGE) if HERO_IMAGE.exists() else ""
+
+
+if hero_bg:
+    st.markdown(
+        f"""
+        <style>
+        .hero {{
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(14,17,23,0.97) 0%,
+                    rgba(14,17,23,0.90) 38%,
+                    rgba(14,17,23,0.58) 68%,
+                    rgba(14,17,23,0.38) 100%
+                ),
+                url("data:image/png;base64,{hero_bg}"),
+                linear-gradient(135deg, #111827 0%, #161B22 55%, #0E1117 100%);
+            background-size: cover;
+            background-position: center center;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
 st.markdown(
     """
     <div class="hero">
@@ -410,6 +492,7 @@ tabs = st.tabs([
     "Democratic Connection Profiles",
     "PCA Explorer",
     "Strategy Implications",
+    "Party Position Transfer Layer",
     "Method Notes"
 ])
 
@@ -419,7 +502,7 @@ tabs = st.tabs([
 # =============================================================================
 
 with tabs[0]:
-    st.subheader("Overview: From democratic attitudes to democratic connection")
+    st.subheader("Overview: From democratic trust indicators to democratic connection")
 
     insight_box(
         """
@@ -437,6 +520,64 @@ with tabs[0]:
         """
     )
 
+    st.markdown("### Core analytical dimensions")
+
+    core_dimensions = pd.DataFrame(
+        [
+            {
+                "Dimension": "Democratic satisfaction",
+                "Operationalization": "ESS variable `stfdem`",
+                "Role in project": "Main outcome: satisfaction with the way democracy works."
+            },
+            {
+                "Dimension": "Party trust",
+                "Operationalization": "ESS variable `trstprt`",
+                "Role in project": "Main outcome: trust in political parties."
+            },
+            {
+                "Dimension": "Political efficacy",
+                "Operationalization": "Index from political voice, influence and participation items",
+                "Role in project": "Strongest explanatory signal across tests and regressions."
+            },
+            {
+                "Dimension": "Social trust",
+                "Operationalization": "Index from trust, fairness and helpfulness items",
+                "Role in project": "Second strongest explanatory signal."
+            },
+            {
+                "Dimension": "Economic security",
+                "Operationalization": "ESS variable `hincfel`",
+                "Role in project": "Context factor linked to democratic trust."
+            },
+            {
+                "Dimension": "Voting participation",
+                "Operationalization": "Cleaned voting variable from `vote`",
+                "Role in project": "Participation dimension and profile separator."
+            },
+            {
+                "Dimension": "Party-position transfer layer",
+                "Operationalization": "Wahl-O-Mat 2025 party positions",
+                "Role in project": "Exploratory mapping to democratic connection priorities."
+            },
+        ]
+    )
+
+    st.dataframe(
+        core_dimensions,
+        use_container_width=True,
+        hide_index=True
+    )
+
+    method_box(
+        """
+        Reading guide: The project does not only compare institutional trust levels. It builds a broader
+        democratic connection framework around satisfaction, party trust, political efficacy, social trust,
+        economic security and participation.
+        """
+    )
+
+    st.markdown("### Starting observation: institutional trust differs strongly")
+    
     trust_values = {
         "Trust in political parties": profiles_data["trstprt"].mean() if "trstprt" in profiles_data.columns else np.nan,
         "Democracy satisfaction": profiles_data["stfdem"].mean() if "stfdem" in profiles_data.columns else np.nan,
@@ -503,7 +644,7 @@ with tabs[0]:
 
     st.markdown("### Analytical pipeline")
 
-    pipeline_col1, pipeline_col2, pipeline_col3 = st.columns(3)
+    pipeline_col1, pipeline_col2, pipeline_col3, pipeline_col4 = st.columns(4)
 
     with pipeline_col1:
         st.markdown(
@@ -511,7 +652,7 @@ with tabs[0]:
             **1. Evidence base**
             - ESS11 Germany subset
             - variable selection
-            - cleaning and index construction
+            - index construction
             """
         )
 
@@ -519,7 +660,7 @@ with tabs[0]:
         st.markdown(
             """
             **2. Statistical validation**
-            - group comparisons
+            - hypothesis testing
             - effect sizes
             - regression models
             """
@@ -528,10 +669,20 @@ with tabs[0]:
     with pipeline_col3:
         st.markdown(
             """
-            **3. Strategic translation**
-            - democratic connection profiles
+            **3. Profile translation**
+            - connection profiles
             - PCA visualization
-            - engagement implications
+            - strategic implications
+            """
+        )
+
+    with pipeline_col4:
+        st.markdown(
+            """
+            **4. Political transfer layer**
+            - Wahl-O-Mat 2025 positions
+            - party-position mapping
+            - cautious alignment view
             """
         )
 
@@ -613,19 +764,39 @@ with tabs[1]:
                 st.markdown(f"**Effect size summary:** {row.get('effect_size_summary', '')}")
                 st.markdown(f"**Interpretation:** {row.get('interpretation', '')}")
 
-        st.markdown("### Full hypothesis summary table")
+    st.markdown("### Compact hypothesis summary")
 
+    compact_cols = [
+        col for col in [
+            "hypothesis_id",
+            "hypothesis",
+            "evidence_strength",
+            "test_used",
+            "effect_size_summary"
+        ]
+        if col in hypothesis_summary.columns
+    ]
+
+    compact_hypothesis_table = hypothesis_summary[compact_cols].copy()
+
+    st.dataframe(
+        compact_hypothesis_table,
+        use_container_width=True,
+        hide_index=True
+    )
+
+    with st.expander("Show full hypothesis summary with detailed interpretation"):
         st.dataframe(
             hypothesis_summary,
             use_container_width=True,
             hide_index=True
         )
 
-        st.info(
-            "Main conclusion: The hypotheses are supported to different degrees. "
-            "Political efficacy receives the strongest support, followed by social trust and participation. "
-            "Economic security and political orientation are relevant, but weaker in this model setup."
-        )
+    st.info(
+        "Main conclusion: The hypotheses are supported to different degrees. "
+        "Political efficacy receives the strongest support, followed by social trust and participation. "
+        "Economic security and political orientation are relevant, but weaker in this model setup."
+    )
 
 # =============================================================================
 # TAB 3: TRUST GAPS
@@ -689,10 +860,7 @@ with tabs[2]:
             color="group",
             barmode="group",
             text=plot_long["mean_score"].round(2),
-            color_discrete_map={
-                "Voted": "#009E73",
-                "Did not vote": "#CC79A7"
-            },
+            color_discrete_map=COLOR_MAP,
             labels={
                 "outcome": "Outcome variable",
                 "mean_score": "Mean score on 0–10 scale",
@@ -747,10 +915,7 @@ with tabs[2]:
             color="group",
             barmode="group",
             text=plot_long["mean_score"].round(2),
-            color_discrete_map={
-                "Secure or coping": "#009E73",
-                "Economically strained": "#CC79A7"
-            },
+            color_discrete_map=COLOR_MAP,
             labels={
                 "outcome": "Outcome variable",
                 "mean_score": "Mean score on 0–10 scale",
@@ -838,6 +1003,7 @@ with tabs[2]:
             color="group",
             barmode="group",
             text=plot_long["mean_score"].round(2),
+            color_discrete_map=COLOR_MAP,
             labels={
                 "outcome": "Outcome variable",
                 "mean_score": "Mean score on 0–10 scale",
@@ -920,18 +1086,23 @@ with tabs[3]:
 
     models = plot_df["model"].unique()
 
-    model_colors = {
-        "Democracy satisfaction": "#56B4E9",
-        "Trust in political parties": "#CC79A7"
+    model_colors = OUTCOME_COLORS
+
+    model_offsets = {
+        "Democracy satisfaction": -0.12,
+        "Trust in political parties": 0.12
     }
+
+    y_base = {label: i for i, label in enumerate(order)}
 
     for model in models:
         sub = plot_df[plot_df["model"] == model].set_index("label").loc[order].reset_index()
+        sub["y_position"] = sub["label"].map(y_base) + model_offsets.get(model, 0)
 
         fig.add_trace(
             go.Scatter(
                 x=sub["coefficient"],
-                y=sub["label"],
+                y=sub["y_position"],
                 mode="markers",
                 marker=dict(
                     size=12,
@@ -949,6 +1120,7 @@ with tabs[3]:
                 name=model,
                 customdata=np.stack(
                     [
+                        sub["label"],
                         sub["p_value"],
                         sub["conf_low"],
                         sub["conf_high"]
@@ -956,16 +1128,21 @@ with tabs[3]:
                     axis=-1
                 ),
                 hovertemplate=(
-                    "<b>%{y}</b><br>"
+                    "<b>%{customdata[0]}</b><br>"
                     "Coefficient: %{x:.3f}<br>"
-                    "p-value: %{customdata[0]:.5f}<br>"
-                    "95% CI: [%{customdata[1]:.3f}, %{customdata[2]:.3f}]"
+                    "p-value: %{customdata[1]:.5f}<br>"
+                    "95% CI: [%{customdata[2]:.3f}, %{customdata[3]:.3f}]"
                     "<extra></extra>"
                 )
             )
         )
 
-    fig.add_vline(x=0, line_dash="dash", line_color="#F0E442")
+    fig.update_yaxes(
+        tickmode="array",
+        tickvals=list(y_base.values()),
+        ticktext=list(y_base.keys())
+    ) 
+    fig.add_vline(x=0, line_dash="dash", line_color="rgba(242,242,242,0.65)")
 
     fig = plot_layout(
         fig,
@@ -1230,52 +1407,111 @@ with tabs[5]:
             """
         )
 
-        method_box(
-        """
-        Reading guide: PC1 summarizes the broad democratic connection dimension. Respondents further to the right
-        tend to show higher democratic satisfaction, higher party trust, higher political efficacy and higher social trust.
-        PC2 captures a secondary profile dimension, mainly helping to distinguish different forms of weaker connection.
-        """
+        with st.expander("Method note: Why standardization matters"):
+            method_box(
+                """
+                The original variables are measured on different scales, including 0–10 trust scales,
+                index variables and binary voting participation. Before PCA, all variables were standardized
+                using z-scores. This ensures that no variable dominates the PCA only because it has a larger
+                numerical scale.
+                """
+            )
+
+        with st.expander("Reading guide: How to interpret PC1 and PC2"):
+            method_box(
+                """
+                PC1 summarizes the broad democratic connection dimension. Respondents further to the right
+                tend to show higher democratic satisfaction, higher party trust, higher political efficacy and higher social trust.
+                PC2 captures a secondary profile dimension, mainly helping to distinguish different forms of weaker connection.
+                """
+            )
+
+        st.caption(
+            "In short: points further to the right generally indicate stronger democratic connection; profile overlap is expected in survey data."
         )
 
         pca_filtered = pca_data.copy()
 
         pc1_var = None
         pc2_var = None
+        pc3_var = None
 
-        if not pca_variance.empty:
-            if "explained_variance_percent" in pca_variance.columns:
+        if not pca_variance.empty and "explained_variance_percent" in pca_variance.columns:
+            if len(pca_variance) >= 1:
                 pc1_var = pca_variance.loc[pca_variance.index[0], "explained_variance_percent"]
-                pc2_var = pca_variance.loc[pca_variance.index[1], "explained_variance_percent"] if len(pca_variance) > 1 else None
+            if len(pca_variance) >= 2:
+                pc2_var = pca_variance.loc[pca_variance.index[1], "explained_variance_percent"]
+            if len(pca_variance) >= 3:
+                pc3_var = pca_variance.loc[pca_variance.index[2], "explained_variance_percent"]
 
-        x_label = f"PC1 – Democratic connection dimension ({pc1_var:.1f}% explained variance)" if pc1_var is not None else "PC1 – Democratic connection dimension"
-        y_label = f"PC2 – secondary profile dimension ({pc2_var:.1f}% explained variance)" if pc2_var is not None else "PC2 – secondary profile dimension"
-
-        fig = px.scatter(
-            pca_filtered,
-            x="PC1",
-            y="PC2",
-            color="democratic_connection_profile",
-            color_discrete_map=COLOR_MAP,
-            opacity=0.72,
-            hover_data=[
-                col for col in [
-                    "Democracy satisfaction",
-                    "Party trust",
-                    "Political efficacy",
-                    "Social trust",
-                    "Income feeling",
-                    "Left-right placement",
-                    "Voting participation"
-                ]
-                if col in pca_filtered.columns
-            ],
-            labels={
-                "PC1": x_label,
-                "PC2": y_label,
-                "democratic_connection_profile": "Profile"
-            }
+        x_label = (
+            f"PC1 – Democratic connection dimension ({pc1_var:.1f}% explained variance)"
+            if pc1_var is not None
+            else "PC1 – Democratic connection dimension"
         )
+
+        y_label = (
+            f"PC2 – secondary profile dimension ({pc2_var:.1f}% explained variance)"
+            if pc2_var is not None
+            else "PC2 – secondary profile dimension"
+        )
+
+        # -------------------------------------------------------------
+        # 2D PCA Map: cleaner visual hierarchy
+        # -------------------------------------------------------------
+
+        fig = go.Figure()
+
+        for profile in PROFILE_ORDER:
+            sub = pca_filtered[
+                pca_filtered["democratic_connection_profile"] == profile
+            ].copy()
+
+            if sub.empty:
+                continue
+
+            fig.add_trace(
+                go.Scattergl(
+                    x=sub["PC1"],
+                    y=sub["PC2"],
+                    mode="markers",
+                    name=profile,
+                    marker=dict(
+                        size=5,
+                        color=COLOR_MAP.get(profile, "#F2F2F2"),
+                        opacity=0.46,
+                        line=dict(width=0)
+                    ),
+                    customdata=np.stack(
+                        [
+                            sub[col] if col in sub.columns else pd.Series([np.nan] * len(sub))
+                            for col in [
+                                "Democracy satisfaction",
+                                "Party trust",
+                                "Political efficacy",
+                                "Social trust",
+                                "Income feeling",
+                                "Left-right placement",
+                                "Voting participation"
+                            ]
+                        ],
+                        axis=-1
+                    ),
+                    hovertemplate=(
+                        "<b>" + profile + "</b><br>"
+                        "PC1: %{x:.2f}<br>"
+                        "PC2: %{y:.2f}<br><br>"
+                        "Democracy satisfaction: %{customdata[0]:.2f}<br>"
+                        "Party trust: %{customdata[1]:.2f}<br>"
+                        "Political efficacy: %{customdata[2]:.2f}<br>"
+                        "Social trust: %{customdata[3]:.2f}<br>"
+                        "Income feeling: %{customdata[4]:.2f}<br>"
+                        "Left-right placement: %{customdata[5]:.2f}<br>"
+                        "Voting participation: %{customdata[6]}"
+                        "<extra></extra>"
+                    )
+                )
+            )
 
         centroids = (
             pca_filtered
@@ -1284,33 +1520,119 @@ with tabs[5]:
             .reset_index()
         )
 
+        # White backing layer for centroid visibility
         fig.add_trace(
             go.Scatter(
                 x=centroids["PC1"],
                 y=centroids["PC2"],
-                mode="markers+text",
+                mode="markers",
+                marker=dict(
+                    size=25,
+                    color="#F2F2F2",
+                    symbol="diamond",
+                    line=dict(width=0)
+                ),
+                name="Profile centroid",
+                hoverinfo="skip",
+                showlegend=True
+            )
+        )
+
+        # Colored centroid layer on top
+        fig.add_trace(
+            go.Scatter(
+                x=centroids["PC1"],
+                y=centroids["PC2"],
+                mode="markers",
                 marker=dict(
                     size=18,
                     color=[
-                        COLOR_MAP.get(profile, "#FFFFFF")
+                        COLOR_MAP.get(profile, "#F2F2F2")
                         for profile in centroids["democratic_connection_profile"]
                     ],
-                    line=dict(width=2, color="white"),
-                    symbol="diamond"
+                    symbol="diamond",
+                    line=dict(width=2, color="#0E1117")
                 ),
-                text=centroids["democratic_connection_profile"],
-                textposition="top center",
-                name="Profile centroid",
-                hovertemplate="<b>%{text}</b><br>Centroid<extra></extra>"
+                name="Centroid highlight",
+                hovertemplate=(
+                    "<b>%{customdata}</b><br>"
+                    "Profile centroid<br>"
+                    "PC1: %{x:.2f}<br>"
+                    "PC2: %{y:.2f}"
+                    "<extra></extra>"
+                ),
+                customdata=centroids["democratic_connection_profile"],
+                showlegend=False
             )
+        )
+
+        # Clean centroid labels as annotations
+        for _, row in centroids.iterrows():
+            fig.add_annotation(
+                x=row["PC1"],
+                y=row["PC2"],
+                text=row["democratic_connection_profile"],
+                showarrow=False,
+                yshift=24,
+                font=dict(size=12, color="#F2F2F2"),
+                bgcolor="rgba(14,17,23,0.82)",
+                bordercolor="rgba(255,255,255,0.16)",
+                borderwidth=1,
+                borderpad=4
+            )
+
+        fig.add_hline(
+            y=0,
+            line_width=1,
+            line_dash="dash",
+            line_color="rgba(255,255,255,0.25)"
+        )
+
+        fig.add_vline(
+            x=0,
+            line_width=1,
+            line_dash="dash",
+            line_color="rgba(255,255,255,0.25)"
         )
 
         fig = plot_layout(
             fig,
             title="2D PCA Map of Democratic Connection Profiles",
-            height=680,
+            height=700,
             x_title=x_label,
             y_title=y_label
+        )
+
+        fig.update_layout(
+            margin=dict(l=30, r=30, t=150, b=55),
+            title=dict(
+                text="2D PCA Map of Democratic Connection Profiles",
+                x=0.02,
+                xanchor="left",
+                y=0.97,
+                font=dict(size=21)
+            ),
+            legend=dict(
+                title=None,
+                orientation="h",
+                yanchor="top",
+                y=1.04,
+                xanchor="center",
+                x=0.55,
+                itemsizing="constant"
+            )
+        )
+
+        fig.update_xaxes(
+            zeroline=False,
+            showline=False,
+            gridcolor="rgba(255,255,255,0.07)"
+        )
+
+        fig.update_yaxes(
+            zeroline=False,
+            showline=False,
+            gridcolor="rgba(255,255,255,0.07)"
         )
 
         st.plotly_chart(fig, use_container_width=True)
@@ -1324,7 +1646,20 @@ with tabs[5]:
         )
 
         if {"PC1", "PC2", "PC3"}.issubset(pca_data.columns):
-            st.markdown("### Optional 3D PCA view")
+            st.markdown("### Interactive 3D PCA view")
+
+            method_box(
+                """
+                This 3D view is an exploratory visualization. PC1, PC2 and PC3 are synthetic dimensions
+                created from the original profile variables. The chart helps inspect profile overlap and
+                separation, but the main interpretation should still rely on the validated trust gaps,
+                regression models and profile summaries.
+                """
+            )
+
+            pc1_short = f"PC1 ({pc1_var:.1f}%)" if pc1_var is not None else "PC1"
+            pc2_short = f"PC2 ({pc2_var:.1f}%)" if pc2_var is not None else "PC2"
+            pc3_short = f"PC3 ({pc3_var:.1f}%)" if pc3_var is not None else "PC3"
 
             fig_3d = px.scatter_3d(
                 pca_filtered,
@@ -1347,11 +1682,18 @@ with tabs[5]:
                     if col in pca_filtered.columns
                 ],
                 labels={
-                    "PC1": "PC1",
-                    "PC2": "PC2",
-                    "PC3": "PC3",
+                    "PC1": pc1_short,
+                    "PC2": pc2_short,
+                    "PC3": pc3_short,
                     "democratic_connection_profile": "Profile"
                 }
+            )
+
+            fig_3d.update_traces(
+                marker=dict(
+                    size=4,
+                    line=dict(width=0)
+                )
             )
 
             fig_3d.update_layout(
@@ -1367,25 +1709,95 @@ with tabs[5]:
                     font=dict(size=21)
                 ),
                 scene=dict(
-                    xaxis_title="PC1",
-                    yaxis_title="PC2",
-                    zaxis_title="PC3",
+                    xaxis_title=pc1_short,
+                    yaxis_title=pc2_short,
+                    zaxis_title=pc3_short,
                     bgcolor="#0E1117"
                 ),
-                legend=dict(title=None)
+                legend=dict(title=None),
+                margin=dict(l=0, r=0, b=0, t=70)
             )
 
             st.plotly_chart(fig_3d, use_container_width=True)
+
+            explained_3d = None
+
+            if pc1_var is not None and pc2_var is not None and pc3_var is not None:
+                explained_3d = f"{pc1_var + pc2_var + pc3_var:.1f}%"
+            else:
+                explained_3d = "the majority"
+
+            method_box(
+                f"""
+                Reading guide: The 3D map shows respondents in a simplified PCA space. 
+                <b>PC1</b> is the main democratic connection dimension. Higher PC1 values generally indicate
+                higher democratic satisfaction, higher party trust, higher political efficacy and higher social trust.
+                <b>PC2</b> captures a secondary distinction between profile patterns.
+                <b>PC3</b> adds another exploratory dimension, mainly useful for inspecting additional separation
+                between the profiles. Together, the first three components explain approximately
+                <b>{explained_3d}</b> of the variation in the selected profile variables.
+                """
+            )
+            with st.expander("What variables are included in the PCA?"):
+                st.markdown(
+                    """
+                    The PCA is based on the same core variables used to construct the Democratic Connection Profiles:
+
+                    - **Democracy satisfaction**
+                    - **Party trust**
+                    - **Political efficacy**
+                    - **Social trust**
+                    - **Income feeling**
+                    - **Left-right placement**
+                    - **Voting participation**
+
+                    These variables were standardized before PCA so that variables measured on different scales can be compared.
+                    """
+                )
+
+                if not pca_loadings.empty:
+                    st.markdown("#### PCA component loadings")
+
+                    loadings_explainer = pca_loadings.copy()
+
+                    if "Unnamed: 0" in loadings_explainer.columns:
+                        loadings_explainer = loadings_explainer.rename(columns={"Unnamed: 0": "Indicator"})
+                    elif loadings_explainer.columns[0] not in ["Indicator", "indicator", "variable"]:
+                        loadings_explainer = loadings_explainer.rename(columns={loadings_explainer.columns[0]: "Indicator"})
+                    elif loadings_explainer.columns[0] == "indicator":
+                        loadings_explainer = loadings_explainer.rename(columns={"indicator": "Indicator"})
+                    elif loadings_explainer.columns[0] == "variable":
+                        loadings_explainer = loadings_explainer.rename(columns={"variable": "Indicator"})
+
+                    st.dataframe(
+                        loadings_explainer,
+                        use_container_width=True,
+                        hide_index=True
+                    )
+
+                    st.markdown(
+                        """
+                        **How to read this table:**  
+                        Loadings show how strongly each original variable contributes to each principal component.
+                        Large positive or negative values mean that the variable strongly shapes that component.
+
+                        **Interpretation:**  
+                        PC1 is the clearest dimension because democratic satisfaction, party trust, political efficacy
+                        and social trust all load strongly in the same direction.
+                        """
+                    )
 
         if not pca_loadings.empty:
             st.markdown("### PCA component loadings")
 
             loadings_plot = pca_loadings.copy()
 
-            if loadings_plot.columns[0] not in ["indicator", "variable"]:
-                loadings_plot = loadings_plot.reset_index().rename(columns={"index": "indicator"})
-            elif loadings_plot.columns[0] != "indicator":
+            if "Unnamed: 0" in loadings_plot.columns:
+                loadings_plot = loadings_plot.rename(columns={"Unnamed: 0": "indicator"})
+            elif loadings_plot.columns[0] not in ["indicator", "variable"]:
                 loadings_plot = loadings_plot.rename(columns={loadings_plot.columns[0]: "indicator"})
+            elif loadings_plot.columns[0] == "variable":
+                loadings_plot = loadings_plot.rename(columns={"variable": "indicator"})
 
             loading_cols = [col for col in loadings_plot.columns if "PC" in col]
 
@@ -1396,12 +1808,14 @@ with tabs[5]:
                     index=0
                 )
 
+                loading_sorted = loadings_plot.sort_values(selected_pc)
+
                 fig_load = px.bar(
-                    loadings_plot.sort_values(selected_pc),
+                    loading_sorted,
                     x=selected_pc,
                     y="indicator",
                     orientation="h",
-                    text=loadings_plot.sort_values(selected_pc)[selected_pc].round(2),
+                    text=loading_sorted[selected_pc].round(2),
                     labels={
                         selected_pc: "Component loading",
                         "indicator": "Original variable"
@@ -1422,13 +1836,14 @@ with tabs[5]:
 
             with st.expander("Show PCA tables"):
                 c1, c2 = st.columns(2)
+
                 with c1:
                     st.markdown("Explained variance")
                     st.dataframe(pca_variance, use_container_width=True, hide_index=True)
+
                 with c2:
                     st.markdown("Component loadings")
                     st.dataframe(pca_loadings, use_container_width=True)
-
 
 # =============================================================================
 # TAB 7: STRATEGY
@@ -1492,12 +1907,208 @@ with tabs[6]:
 
     st.dataframe(action_df, use_container_width=True, hide_index=True)
 
-
 # =============================================================================
-# TAB 8: METHOD NOTES
+# TAB 8: PARTY POSITION TRANSFER LAYER
 # =============================================================================
 
 with tabs[7]:
+    st.subheader("Party Position Transfer Layer")
+
+    insight_box(
+        """
+        This exploratory transfer layer connects the ESS-based democratic connection findings
+        with standardized Wahl-O-Mat 2025 party positions. It asks where party positions visibly align
+        with the democratic connection priorities identified in the main analysis.
+        """
+    )
+
+    method_box(
+        """
+        Important: This is not a party ranking and not a claim that one party is more democratic than another.
+        The heatmap only shows directional alignment between selected Wahl-O-Mat 2025 issue positions and
+        the democratic connection dimensions coded for this project.
+
+        The party-position layer is not based on full party manifestos. It uses a standardized set of
+        Wahl-O-Mat 2025 issue positions, which improves comparability because all parties answer the same issues,
+        but limits substantive completeness. Results are therefore issue-set dependent and exploratory.
+        """
+    )
+
+    if party_alignment_matrix.empty or party_alignment_long.empty:
+        st.warning(
+            "Party alignment files were not found. Please export the app-ready party alignment files from the transfer-layer notebook first."
+        )
+    else:
+        party_order = ["SPD", "CDU / CSU", "GRÜNE", "FDP", "Die Linke", "BSW", "AfD"]
+
+        dimension_order = [
+            "Democratic institutions and rule of law",
+            "Institutional responsiveness",
+            "Economic security",
+            "Participation and civic inclusion",
+            "Social trust and cohesion",
+            "Direct participation / political voice"
+        ]
+
+        heatmap_df = party_alignment_matrix.copy()
+        heatmap_df = heatmap_df.set_index("party")
+
+        heatmap_df = heatmap_df.loc[
+            [party for party in party_order if party in heatmap_df.index]
+        ]
+
+        heatmap_df = heatmap_df[
+            [dimension for dimension in dimension_order if dimension in heatmap_df.columns]
+        ]
+
+        fig = px.imshow(
+            heatmap_df,
+            text_auto=".2f",
+            color_continuous_scale=ALIGNMENT_COLOR_SCALE,
+            zmin=-1,
+            zmax=1,
+            aspect="auto",
+            labels=dict(
+                x="Democratic connection dimension",
+                y="Party",
+                color="Alignment score"
+            )
+        )
+
+        fig.update_layout(
+            template=PLOT_TEMPLATE,
+            height=620,
+            paper_bgcolor="#0E1117",
+            plot_bgcolor="#0E1117",
+            font=dict(color="#F2F2F2"),
+            title=dict(
+                text="Party Positions and Democratic Connection Priorities",
+                x=0.02,
+                xanchor="left",
+                font=dict(size=22)
+            ),
+            margin=dict(l=40, r=40, t=90, b=135),
+            coloraxis_colorbar=dict(
+                title="Alignment",
+                tickvals=[-1, 0, 1],
+                ticktext=["negative", "mixed", "positive"]
+            )
+        )
+
+        fig.update_xaxes(tickangle=35)
+        fig.update_traces(
+            hovertemplate=(
+                "<b>Party:</b> %{y}<br>"
+                "<b>Dimension:</b> %{x}<br>"
+                "<b>Alignment score:</b> %{z:.2f}<br>"
+                "<extra></extra>"
+            )
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+        method_box(
+            """
+            Reading guide: Positive values indicate visible alignment with the coded democratic connection priority.
+            Negative values indicate visible misalignment. Values around zero indicate mixed or neutral positioning.
+            The score is calculated as party position × issue alignment direction.
+            """
+        )
+
+        st.markdown("### Evidence strength by dimension")
+
+        if not party_dimension_evidence.empty:
+            evidence_display = party_dimension_evidence.copy()
+
+            evidence_display = evidence_display.rename(columns={
+                "connection_dimension_label_refined": "Democratic connection dimension",
+                "n_issues": "Number of issues",
+                "n_party_positions": "Party positions coded",
+                "evidence_strength": "Evidence strength"
+            })
+
+            st.dataframe(
+                evidence_display.sort_values("Number of issues", ascending=False),
+                use_container_width=True,
+                hide_index=True
+            )
+
+            method_box(
+                """
+                Dimensions are not equally covered by the Wahl-O-Mat issue set.
+                Economic security, democratic institutions and institutional responsiveness have stronger issue coverage.
+                Social trust and direct participation are weakly covered and should be interpreted with extra caution.
+                """
+            )
+
+        st.markdown("### Party-specific detail view")
+
+        selected_party = st.selectbox(
+            "Select party",
+            options=[party for party in party_order if party in party_alignment_long["party"].unique()],
+            index=0
+        )
+
+        party_detail = party_alignment_long[
+            party_alignment_long["party"] == selected_party
+        ].copy()
+
+        party_detail = party_detail.sort_values("alignment_score", ascending=False)
+
+        fig_party = px.bar(
+            party_detail,
+            x="alignment_score",
+            y="democratic_connection_dimension",
+            orientation="h",
+            color="alignment_score",
+            color_continuous_scale=ALIGNMENT_COLOR_SCALE,
+            range_color=[-1, 1],
+            text=party_detail["alignment_score"].round(2),
+            labels={
+                "alignment_score": "Alignment score",
+                "democratic_connection_dimension": "Democratic connection dimension"
+            },
+            title=f"Alignment Profile: {selected_party}"
+        )
+
+        fig_party.add_vline(x=0, line_dash="dash", line_color="#F2F2F2")
+
+        fig_party = plot_layout(
+            fig_party,
+            title=f"Alignment Profile: {selected_party}",
+            height=480,
+            x_title="Directional alignment score",
+            y_title="Democratic connection dimension"
+        )
+
+        fig_party.update_layout(showlegend=False)
+        fig_party.update_xaxes(range=[-1, 1])
+
+        st.plotly_chart(fig_party, use_container_width=True)
+
+        with st.expander("Show party alignment data"):
+            st.dataframe(
+                party_detail,
+                use_container_width=True,
+                hide_index=True
+            )
+
+        if not party_alignment_summary.empty:
+            with st.expander("Show cautious party-level summary"):
+                st.warning(
+                    "This table can look like a ranking, but it should not be interpreted as a normative party ranking. "
+                    "It only summarizes average alignment within the selected Wahl-O-Mat issue set."
+                )
+                st.dataframe(
+                    party_alignment_summary,
+                    use_container_width=True,
+                    hide_index=True
+                )
+# =============================================================================
+# TAB 9: METHOD NOTES
+# =============================================================================
+
+with tabs[8]:
     st.subheader("Method Notes and Interpretation Boundaries")
 
     st.markdown(
@@ -1532,6 +2143,16 @@ with tabs[7]:
 
         PCA is used as a visualization aid. It helps show multidimensional structure, but it does not prove
         that clusters are objectively fixed or sharply separated.
+
+        ### Party-position transfer layer
+
+        The party-position transfer layer uses standardized Wahl-O-Mat 2025 party positions. This improves
+        comparability because all included parties respond to the same issue set. However, it does not replace
+        a full manifesto analysis and should not be interpreted as a complete representation of party ideology
+        or party strategy.
+
+        The alignment scores show how selected issue positions relate to the democratic connection dimensions
+        coded for this project. They are exploratory and should not be interpreted as a normative party ranking.
 
         ### Ethical note
 

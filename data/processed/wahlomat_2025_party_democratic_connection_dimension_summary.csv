@@ -1,0 +1,43 @@
+party_short,connection_dimension_label_refined,n_issues,mean_position_score,agreement_count,neutral_count,disagreement_count,alignment_interpretation
+AfD,Democratic institutions and rule of law,9,0.22,5,1,3,Mixed or neutral
+AfD,Direct participation / political voice,1,1.0,1,0,0,Visible agreement
+AfD,Economic security,10,-0.4,2,2,6,Visible disagreement
+AfD,Institutional responsiveness,8,0.12,4,1,3,Mixed or neutral
+AfD,Participation and civic inclusion,5,-0.4,1,1,3,Visible disagreement
+AfD,Social trust and cohesion,2,1.0,2,0,0,Visible agreement
+BSW,Democratic institutions and rule of law,9,-0.44,1,3,5,Visible disagreement
+BSW,Direct participation / political voice,1,1.0,1,0,0,Visible agreement
+BSW,Economic security,10,0.5,7,1,2,Visible agreement
+BSW,Institutional responsiveness,8,0.0,3,2,3,Mixed or neutral
+BSW,Participation and civic inclusion,5,0.0,2,1,2,Mixed or neutral
+BSW,Social trust and cohesion,2,0.0,1,0,1,Mixed or neutral
+CDU / CSU,Democratic institutions and rule of law,9,0.56,7,0,2,Visible agreement
+CDU / CSU,Direct participation / political voice,1,-1.0,0,0,1,Visible disagreement
+CDU / CSU,Economic security,10,0.1,5,1,4,Mixed or neutral
+CDU / CSU,Institutional responsiveness,8,0.25,5,0,3,Mixed or neutral
+CDU / CSU,Participation and civic inclusion,5,-0.4,1,1,3,Visible disagreement
+CDU / CSU,Social trust and cohesion,2,0.0,1,0,1,Mixed or neutral
+Die Linke,Democratic institutions and rule of law,9,-0.56,2,0,7,Visible disagreement
+Die Linke,Direct participation / political voice,1,1.0,1,0,0,Visible agreement
+Die Linke,Economic security,10,0.4,7,0,3,Visible agreement
+Die Linke,Institutional responsiveness,8,-0.12,3,1,4,Mixed or neutral
+Die Linke,Participation and civic inclusion,5,0.0,2,1,2,Mixed or neutral
+Die Linke,Social trust and cohesion,2,-1.0,0,0,2,Visible disagreement
+FDP,Democratic institutions and rule of law,9,-0.11,3,2,4,Mixed or neutral
+FDP,Direct participation / political voice,1,-1.0,0,0,1,Visible disagreement
+FDP,Economic security,10,-0.6,2,0,8,Visible disagreement
+FDP,Institutional responsiveness,8,0.25,5,0,3,Mixed or neutral
+FDP,Participation and civic inclusion,5,0.0,2,1,2,Mixed or neutral
+FDP,Social trust and cohesion,2,0.5,1,1,0,Visible agreement
+GRÜNE,Democratic institutions and rule of law,9,0.0,4,1,4,Mixed or neutral
+GRÜNE,Direct participation / political voice,1,-1.0,0,0,1,Visible disagreement
+GRÜNE,Economic security,10,0.2,6,0,4,Mixed or neutral
+GRÜNE,Institutional responsiveness,8,0.0,4,0,4,Mixed or neutral
+GRÜNE,Participation and civic inclusion,5,0.2,3,0,2,Mixed or neutral
+GRÜNE,Social trust and cohesion,2,-1.0,0,0,2,Visible disagreement
+SPD,Democratic institutions and rule of law,9,0.11,5,0,4,Mixed or neutral
+SPD,Direct participation / political voice,1,0.0,0,1,0,Mixed or neutral
+SPD,Economic security,10,0.5,7,1,2,Visible agreement
+SPD,Institutional responsiveness,8,0.0,4,0,4,Mixed or neutral
+SPD,Participation and civic inclusion,5,-0.2,2,0,3,Mixed or neutral
+SPD,Social trust and cohesion,2,-1.0,0,0,2,Visible disagreement

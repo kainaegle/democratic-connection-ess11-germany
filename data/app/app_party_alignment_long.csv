@@ -1,0 +1,43 @@
+party,democratic_connection_dimension,n_issues,alignment_score,positive_alignment_count,neutral_alignment_count,negative_alignment_count,alignment_interpretation,evidence_strength
+AfD,Democratic institutions and rule of law,9,-0.56,0,4,5,Visible negative alignment,stronger issue coverage
+AfD,Direct participation / political voice,1,1.0,1,0,0,Visible positive alignment,weak issue coverage
+AfD,Economic security,10,-0.8,0,2,8,Visible negative alignment,stronger issue coverage
+AfD,Institutional responsiveness,8,-0.62,0,3,5,Visible negative alignment,stronger issue coverage
+AfD,Participation and civic inclusion,5,-0.8,0,1,4,Visible negative alignment,moderate issue coverage
+AfD,Social trust and cohesion,2,-1.0,0,0,2,Visible negative alignment,weak issue coverage
+BSW,Democratic institutions and rule of law,9,0.11,2,6,1,Mixed or neutral alignment,stronger issue coverage
+BSW,Direct participation / political voice,1,1.0,1,0,0,Visible positive alignment,weak issue coverage
+BSW,Economic security,10,0.3,6,1,3,Mixed or neutral alignment,stronger issue coverage
+BSW,Institutional responsiveness,8,0.12,3,3,2,Mixed or neutral alignment,stronger issue coverage
+BSW,Participation and civic inclusion,5,0.4,3,1,1,Visible positive alignment,moderate issue coverage
+BSW,Social trust and cohesion,2,0.0,1,0,1,Mixed or neutral alignment,weak issue coverage
+CDU / CSU,Democratic institutions and rule of law,9,0.11,3,4,2,Mixed or neutral alignment,stronger issue coverage
+CDU / CSU,Direct participation / political voice,1,-1.0,0,0,1,Visible negative alignment,weak issue coverage
+CDU / CSU,Economic security,10,-0.5,2,1,7,Visible negative alignment,stronger issue coverage
+CDU / CSU,Institutional responsiveness,8,0.0,3,2,3,Mixed or neutral alignment,stronger issue coverage
+CDU / CSU,Participation and civic inclusion,5,-0.4,1,1,3,Visible negative alignment,moderate issue coverage
+CDU / CSU,Social trust and cohesion,2,0.0,1,0,1,Mixed or neutral alignment,weak issue coverage
+Die Linke,Democratic institutions and rule of law,9,0.33,4,4,1,Mixed or neutral alignment,stronger issue coverage
+Die Linke,Direct participation / political voice,1,1.0,1,0,0,Visible positive alignment,weak issue coverage
+Die Linke,Economic security,10,1.0,10,0,0,Visible positive alignment,stronger issue coverage
+Die Linke,Institutional responsiveness,8,0.62,5,3,0,Visible positive alignment,stronger issue coverage
+Die Linke,Participation and civic inclusion,5,0.4,3,1,1,Visible positive alignment,moderate issue coverage
+Die Linke,Social trust and cohesion,2,1.0,2,0,0,Visible positive alignment,weak issue coverage
+FDP,Democratic institutions and rule of law,9,0.33,4,4,1,Mixed or neutral alignment,stronger issue coverage
+FDP,Direct participation / political voice,1,-1.0,0,0,1,Visible negative alignment,weak issue coverage
+FDP,Economic security,10,-0.8,1,0,9,Visible negative alignment,stronger issue coverage
+FDP,Institutional responsiveness,8,0.0,3,2,3,Mixed or neutral alignment,stronger issue coverage
+FDP,Participation and civic inclusion,5,-0.4,1,1,3,Visible negative alignment,moderate issue coverage
+FDP,Social trust and cohesion,2,-0.5,0,1,1,Visible negative alignment,weak issue coverage
+GRÜNE,Democratic institutions and rule of law,9,0.56,5,4,0,Visible positive alignment,stronger issue coverage
+GRÜNE,Direct participation / political voice,1,-1.0,0,0,1,Visible negative alignment,weak issue coverage
+GRÜNE,Economic security,10,0.4,7,0,3,Visible positive alignment,stronger issue coverage
+GRÜNE,Institutional responsiveness,8,0.75,6,2,0,Visible positive alignment,stronger issue coverage
+GRÜNE,Participation and civic inclusion,5,0.6,4,0,1,Visible positive alignment,moderate issue coverage
+GRÜNE,Social trust and cohesion,2,1.0,2,0,0,Visible positive alignment,weak issue coverage
+SPD,Democratic institutions and rule of law,9,0.56,5,4,0,Visible positive alignment,stronger issue coverage
+SPD,Direct participation / political voice,1,0.0,0,1,0,Mixed or neutral alignment,weak issue coverage
+SPD,Economic security,10,0.3,6,1,3,Mixed or neutral alignment,stronger issue coverage
+SPD,Institutional responsiveness,8,0.75,6,2,0,Visible positive alignment,stronger issue coverage
+SPD,Participation and civic inclusion,5,0.2,3,0,2,Mixed or neutral alignment,moderate issue coverage
+SPD,Social trust and cohesion,2,1.0,2,0,0,Visible positive alignment,weak issue coverage
