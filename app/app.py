@@ -7,6 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from pathlib import Path
 import base64
+import textwrap
 
 
 # =============================================================================
@@ -14,7 +15,7 @@ import base64
 # =============================================================================
 
 st.set_page_config(
-    page_title="What Builds Democratic Connection?",
+    page_title="The Democratic Trust Gap",
     page_icon="🗳️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -77,7 +78,9 @@ st.markdown(
             radial-gradient(circle at top left, rgba(86,180,233,0.25), transparent 35%),
             radial-gradient(circle at bottom right, rgba(204,121,167,0.18), transparent 35%),
             linear-gradient(135deg, #111827 0%, #161B22 55%, #0E1117 100%);
-        border: 1px solid var(--border-soft);
+        border: none;
+        outline: 1px solid rgba(255,255,255,0.04);
+        outline-offset: -1px;
         margin-bottom: 1.4rem;
     }
 
@@ -385,8 +388,18 @@ def insight_box(text):
     st.markdown(f"""<div class="insight-box">{text}</div>""", unsafe_allow_html=True)
 
 
-def method_box(text):
-    st.markdown(f"""<div class="method-box">{text}</div>""", unsafe_allow_html=True)
+def method_box(text, title="Method / reading note", expanded=False):
+    clean_text = textwrap.dedent(text).strip()
+
+    with st.expander(title, expanded=expanded):
+        st.markdown(
+            f"""
+            <div class="method-box">
+                {clean_text}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 
 def format_profile_name(name):
@@ -425,16 +438,20 @@ if hero_bg:
             background:
                 linear-gradient(
                     90deg,
-                    rgba(14,17,23,0.97) 0%,
-                    rgba(14,17,23,0.90) 38%,
-                    rgba(14,17,23,0.58) 68%,
-                    rgba(14,17,23,0.38) 100%
+                    rgba(14,17,23,1.00) 0%,
+                    rgba(14,17,23,0.99) 18%,
+                    rgba(14,17,23,0.93) 38%,
+                    rgba(14,17,23,0.62) 68%,
+                    rgba(14,17,23,0.34) 100%
                 ),
                 url("data:image/png;base64,{hero_bg}"),
                 linear-gradient(135deg, #111827 0%, #161B22 55%, #0E1117 100%);
             background-size: cover;
             background-position: center center;
-            box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.06),
+                inset 24px 0 36px rgba(14,17,23,0.98),
+                0 18px 45px rgba(0,0,0,0.25);
         }}
         </style>
         """,
@@ -445,11 +462,11 @@ st.markdown(
     """
     <div class="hero">
         <div class="hero-tag">ESS Round 11 · Germany · Democratic Trust Analysis</div>
-        <div class="hero-title">What Builds Democratic Connection?</div>
+        <div class="hero-title">The Democratic Trust Gap</div>
         <div class="hero-subtitle">
-            A data-driven analysis of democratic satisfaction, party trust, political efficacy,
-            social trust and political participation in Germany. The project translates survey evidence
-            into exploratory democratic connection profiles and strategic implications.
+            A data-driven analysis of trust, voice and participation in Germany.
+            Behind this project is a simple question: Who feels represented, who feels heard,
+            and who starts to disengage?
         </div>
     </div>
     """,
@@ -486,13 +503,13 @@ st.markdown("---")
 
 tabs = st.tabs([
     "Overview",
-    "Hypothesis Testing",
+    "Hypotheses",
     "Trust Gaps",
-    "Regression Evidence",
-    "Democratic Connection Profiles",
+    "Regression",
+    "Profiles",
     "PCA Explorer",
-    "Strategy Implications",
-    "Party Position Transfer Layer",
+    "Strategy",
+    "Party Transfer",
     "Method Notes"
 ])
 
@@ -502,13 +519,13 @@ tabs = st.tabs([
 # =============================================================================
 
 with tabs[0]:
-    st.subheader("Overview: From democratic trust indicators to democratic connection")
+    st.subheader("Overview: Trust, voice and participation")
 
     insight_box(
         """
-        <b>Core idea:</b> Democratic disconnection is not one single problem.
-        The analysis therefore combines democratic satisfaction, institutional trust,
-        perceived political efficacy, social trust, economic security and political participation.
+        <b>Core idea:</b> The project asks who feels represented, who feels heard,
+        and who starts to disengage. It translates abstract democratic trust into measurable
+        survey dimensions: trust, voice, participation, social confidence and economic security.
         """
     )
 
@@ -525,39 +542,34 @@ with tabs[0]:
     core_dimensions = pd.DataFrame(
         [
             {
-                "Dimension": "Democratic satisfaction",
-                "Operationalization": "ESS variable `stfdem`",
-                "Role in project": "Main outcome: satisfaction with the way democracy works."
+                "Analytical dimension": "Trust",
+                "Plain-language meaning": "Do people trust democratic institutions and political parties?",
+                "ESS-based measure": "Democratic satisfaction, party trust and institutional trust indicators"
             },
             {
-                "Dimension": "Party trust",
-                "Operationalization": "ESS variable `trstprt`",
-                "Role in project": "Main outcome: trust in political parties."
+                "Analytical dimension": "Voice",
+                "Plain-language meaning": "Do people feel that they can influence politics and be heard?",
+                "ESS-based measure": "Political efficacy index"
             },
             {
-                "Dimension": "Political efficacy",
-                "Operationalization": "Index from political voice, influence and participation items",
-                "Role in project": "Strongest explanatory signal across tests and regressions."
+                "Analytical dimension": "Participation",
+                "Plain-language meaning": "Do people still take part in democracy through voting?",
+                "ESS-based measure": "Cleaned voting participation variable"
             },
             {
-                "Dimension": "Social trust",
-                "Operationalization": "Index from trust, fairness and helpfulness items",
-                "Role in project": "Second strongest explanatory signal."
+                "Analytical dimension": "Social confidence",
+                "Plain-language meaning": "Do people generally trust others and expect fair behaviour?",
+                "ESS-based measure": "Social trust index"
             },
             {
-                "Dimension": "Economic security",
-                "Operationalization": "ESS variable `hincfel`",
-                "Role in project": "Context factor linked to democratic trust."
+                "Analytical dimension": "Economic security",
+                "Plain-language meaning": "Do people feel economically secure or under strain?",
+                "ESS-based measure": "Subjective income feeling"
             },
             {
-                "Dimension": "Voting participation",
-                "Operationalization": "Cleaned voting variable from `vote`",
-                "Role in project": "Participation dimension and profile separator."
-            },
-            {
-                "Dimension": "Party-position transfer layer",
-                "Operationalization": "Wahl-O-Mat 2025 party positions",
-                "Role in project": "Exploratory mapping to democratic connection priorities."
+                "Analytical dimension": "Political transfer layer",
+                "Plain-language meaning": "How do selected party positions relate to the identified democratic connection priorities?",
+                "ESS-based measure": "Exploratory Wahl-O-Mat 2025 mapping, not part of the core ESS model"
             },
         ]
     )
@@ -570,10 +582,25 @@ with tabs[0]:
 
     method_box(
         """
-        Reading guide: The project does not only compare institutional trust levels. It builds a broader
-        democratic connection framework around satisfaction, party trust, political efficacy, social trust,
-        economic security and participation.
+        The German ESS Round 11 data is based on a probability sample and face-to-face computer-assisted interviews.
+        However, the official response rate for Germany is 26.7%.
+
+        This matters for interpretation: if people with very low political trust, low institutional confidence or high
+        disengagement are less likely to participate in the survey, democratic disconnection may be under- or differently
+        represented in the data.
+
+        Therefore, the results should be read as robust associational patterns within the achieved sample, not as a perfect
+        census of democratic attitudes in Germany.
+        """,
+        title="Data quality note: response rate and interpretation"
+    )
+
+    method_box(
         """
+        Reading guide: The project translates abstract democratic trust into more tangible dimensions:
+        whether people trust institutions, feel politically heard, still participate, trust others and feel economically secure.
+        """,
+        title="Reading guide: how to read the dimensions"
     )
 
     st.markdown("### Starting observation: institutional trust differs strongly")
@@ -642,6 +669,13 @@ with tabs[0]:
             """
         )
 
+    insight_box(
+        """
+        <b>Key takeaway for the presentation:</b> The project is not only about whether people vote.
+        It asks whether people experience democracy as trustworthy, responsive and meaningful.
+        """
+    )
+
     st.markdown("### Analytical pipeline")
 
     pipeline_col1, pipeline_col2, pipeline_col3, pipeline_col4 = st.columns(4)
@@ -696,8 +730,9 @@ with tabs[1]:
 
     insight_box(
         """
-        This section summarizes the predefined analytical hypotheses tested in the project.
-        The results should be read as associational evidence, not as causal proof.
+        <b>Key takeaway:</b> The project does not only visualize survey data.
+        It tests predefined hypotheses using group comparisons, effect sizes and regression evidence.
+        The results are interpreted as associations, not causal proof.
         """
     )
 
@@ -807,8 +842,9 @@ with tabs[2]:
 
     insight_box(
         """
-        This section summarizes the main trust gap hypotheses. The goal is to identify which forms of
-        democratic disconnection are statistically visible and practically meaningful.
+        <b>Key takeaway:</b> The strongest gap appears around political efficacy —
+        the feeling that one's voice can make a difference. People with higher political efficacy
+        show higher democratic satisfaction and higher trust.
         """
     )
 
@@ -1051,8 +1087,9 @@ with tabs[3]:
 
     insight_box(
         """
-        Regression models test whether political efficacy and social trust remain associated with
-        democratic satisfaction and party trust when other variables are considered at the same time.
+        <b>Key takeaway:</b> Political efficacy and social trust remain the strongest positive signals
+        when several factors are considered at the same time. The dots show regression coefficients;
+        the horizontal lines show 95% confidence intervals.
         """
     )
 
@@ -1200,9 +1237,9 @@ with tabs[4]:
 
     insight_box(
         """
-        The profile analysis translates variable-level findings into an exploratory segmentation.
-        The key insight is that democratic disconnection is not only visible among non-voters.
-        A large group still votes while showing low democratic satisfaction and low party trust.
+        <b>Key takeaway:</b> Democratic disengagement is not only about non-voters.
+        A large group still votes, but shows low democratic satisfaction and low party trust.
+        Voting alone is therefore not enough to understand democratic stability.
         """
     )
 
@@ -1407,24 +1444,24 @@ with tabs[5]:
             """
         )
 
-        with st.expander("Method note: Why standardization matters"):
-            method_box(
-                """
-                The original variables are measured on different scales, including 0–10 trust scales,
-                index variables and binary voting participation. Before PCA, all variables were standardized
-                using z-scores. This ensures that no variable dominates the PCA only because it has a larger
-                numerical scale.
-                """
-            )
+        method_box(
+            """
+            The original variables are measured on different scales, including 0–10 trust scales,
+            index variables and binary voting participation. Before PCA, all variables were standardized
+            using z-scores. This ensures that no variable dominates the PCA only because it has a larger
+            numerical scale.
+            """,
+            title="Method note: Why standardization matters"
+        )
 
-        with st.expander("Reading guide: How to interpret PC1 and PC2"):
-            method_box(
-                """
-                PC1 summarizes the broad democratic connection dimension. Respondents further to the right
-                tend to show higher democratic satisfaction, higher party trust, higher political efficacy and higher social trust.
-                PC2 captures a secondary profile dimension, mainly helping to distinguish different forms of weaker connection.
-                """
-            )
+        method_box(
+            """
+            PC1 summarizes the broad democratic connection dimension. Respondents further to the right
+            tend to show higher democratic satisfaction, higher party trust, higher political efficacy and higher social trust.
+            PC2 captures a secondary profile dimension, mainly helping to distinguish different forms of weaker connection.
+            """,
+            title="Reading guide: How to interpret PC1 and PC2"
+        )
 
         st.caption(
             "In short: points further to the right generally indicate stronger democratic connection; profile overlap is expected in survey data."
@@ -1854,9 +1891,8 @@ with tabs[6]:
 
     insight_box(
         """
-        The strategic translation is evidence-informed, not causal. The profiles suggest that democratic
-        actors should distinguish between maintaining connection, rebuilding trust among disappointed
-        participants and lowering barriers for disengaged non-voters.
+        <b>Key takeaway:</b> If political efficacy is the strongest signal, democratic actors need more
+        than better messaging. They need credible experiences of voice, responsiveness and social connection.
         """
     )
 
@@ -1916,9 +1952,9 @@ with tabs[7]:
 
     insight_box(
         """
-        This exploratory transfer layer connects the ESS-based democratic connection findings
-        with standardized Wahl-O-Mat 2025 party positions. It asks where party positions visibly align
-        with the democratic connection priorities identified in the main analysis.
+        <b>Optional transfer layer:</b> This section connects the ESS-based findings with standardized
+        Wahl-O-Mat 2025 party positions. It is an exploratory issue-alignment map, not a party ranking
+        and not a full manifesto analysis.
         """
     )
 
@@ -1931,7 +1967,8 @@ with tabs[7]:
         The party-position layer is not based on full party manifestos. It uses a standardized set of
         Wahl-O-Mat 2025 issue positions, which improves comparability because all parties answer the same issues,
         but limits substantive completeness. Results are therefore issue-set dependent and exploratory.
-        """
+        """,
+        title="Important methodological note"
     )
 
     if party_alignment_matrix.empty or party_alignment_long.empty:
@@ -2118,6 +2155,13 @@ with tabs[8]:
         This project uses the European Social Survey Round 11 Germany subset. The analysis focuses on
         selected variables related to democratic satisfaction, institutional trust, political efficacy,
         social trust, subjective income feeling, political orientation and voting behavior.
+
+        The German ESS Round 11 fieldwork used a probability-based sampling design based on municipality
+        population registers and computer-assisted face-to-face interviews. The official response rate for
+        Germany is 26.7%. This is an important limitation because nonresponse may be systematic: people with
+        lower political trust, lower institutional confidence or stronger disengagement may be less likely to
+        participate in a political survey. The analysis therefore focuses on associational patterns in the
+        achieved sample and avoids overclaiming population-level causal conclusions.
 
         ### Statistical interpretation
 
