@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 from pathlib import Path
 import base64
 import textwrap
+import time
 
 
 # =============================================================================
@@ -191,6 +192,19 @@ st.markdown(
         line-height: 1.45;
     }
 
+    .presentation-highlight {
+        color: #F0E442;
+        font-weight: 800;
+    }
+
+    .presentation-highlight-soft {
+        color: #F0E442;
+        font-weight: 700;
+        background: rgba(240,228,66,0.08);
+        padding: 0.08rem 0.28rem;
+        border-radius: 6px;
+    }
+
     div[data-testid="stMetricValue"] {
         font-size: 1.65rem;
     }
@@ -350,24 +364,44 @@ def plot_layout(fig, title=None, height=520, x_title=None, y_title=None):
         paper_bgcolor="#0E1117",
         plot_bgcolor="#0E1117",
         font=dict(color="#F2F2F2"),
-        margin=dict(l=30, r=30, t=75 if title else 40, b=50),
+        margin=dict(l=30, r=30, t=95 if title else 55, b=50),
         legend=dict(
             title=None,
             orientation="h",
             yanchor="bottom",
-            y=1.02,
+            y=1.01,
             xanchor="right",
-            x=1
+            x=1,
+            font=dict(size=18),
+            itemsizing="constant",
+            itemwidth=30
         )
     )
     if x_title:
-        fig.update_xaxes(title_text=x_title, gridcolor="rgba(255,255,255,0.08)")
+        fig.update_xaxes(
+            title_text=x_title,
+            title_font=dict(size=20),
+            tickfont=dict(size=18),
+            gridcolor="rgba(255,255,255,0.08)"
+        )
     else:
-        fig.update_xaxes(gridcolor="rgba(255,255,255,0.08)")
+        fig.update_xaxes(
+            tickfont=dict(size=18),
+            gridcolor="rgba(255,255,255,0.08)"
+        )
+
     if y_title:
-        fig.update_yaxes(title_text=y_title, gridcolor="rgba(255,255,255,0.08)")
+        fig.update_yaxes(
+            title_text=y_title,
+            title_font=dict(size=20),
+            tickfont=dict(size=18),
+            gridcolor="rgba(255,255,255,0.08)"
+        )
     else:
-        fig.update_yaxes(gridcolor="rgba(255,255,255,0.08)")
+        fig.update_yaxes(
+            tickfont=dict(size=18),
+            gridcolor="rgba(255,255,255,0.08)"
+        )
     return fig
 
 
@@ -464,9 +498,10 @@ st.markdown(
         <div class="hero-tag">ESS Round 11 · Germany · Democratic Trust Analysis</div>
         <div class="hero-title">The Democratic Trust Gap</div>
         <div class="hero-subtitle">
-            A data-driven analysis of trust, voice and participation in Germany.
-            Behind this project is a simple question: Who feels represented, who feels heard,
-            and who starts to disengage?
+            A data-driven analysis of trust, voice and participation in Germany.<br>
+            Behind this project is a simple question:
+            <span class="presentation-highlight">Who feels represented, who feels heard,
+            and who starts to disengage?</span>
         </div>
     </div>
     """,
@@ -523,9 +558,12 @@ with tabs[0]:
 
     insight_box(
         """
-        <b>Core idea:</b> The project asks who feels represented, who feels heard,
-        and who starts to disengage. It translates abstract democratic trust into measurable
-        survey dimensions: trust, voice, participation, social confidence and economic security.
+        <b>Core idea:</b> The project asks
+        <span class="presentation-highlight-soft">who feels represented, who feels heard,
+        and who starts to disengage.</span>
+        It translates abstract democratic trust into measurable survey dimensions:
+        <span class="presentation-highlight">trust, voice and participation</span>,
+        complemented by social confidence and economic security.
         """
     )
 
@@ -671,8 +709,10 @@ with tabs[0]:
 
     insight_box(
         """
-        <b>Key takeaway for the presentation:</b> The project is not only about whether people vote.
-        It asks whether people experience democracy as trustworthy, responsive and meaningful.
+        <b>Key takeaway for the presentation:</b>
+        The project is not only about whether people vote.
+        It asks whether people experience democracy as
+        <span class="presentation-highlight-soft">trustworthy, responsive and meaningful.</span>
         """
     )
 
@@ -730,8 +770,10 @@ with tabs[1]:
 
     insight_box(
         """
-        <b>Key takeaway:</b> The project does not only visualize survey data.
-        It tests predefined hypotheses using group comparisons, effect sizes and regression evidence.
+        <b>Key takeaway:</b>
+        The project does not only visualize survey data.
+        It <span class="presentation-highlight-soft">tests predefined hypotheses</span>
+        using group comparisons, effect sizes and regression evidence.
         The results are interpreted as associations, not causal proof.
         """
     )
@@ -842,9 +884,10 @@ with tabs[2]:
 
     insight_box(
         """
-        <b>Key takeaway:</b> The strongest gap appears around political efficacy —
-        the feeling that one's voice can make a difference. People with higher political efficacy
-        show higher democratic satisfaction and higher trust.
+        <b>Key takeaway:</b>
+        <span class="presentation-highlight">Political efficacy is the strongest signal.</span>
+        It captures the feeling that one's voice can make a difference.
+        People with higher political efficacy show higher democratic satisfaction and higher trust.
         """
     )
 
@@ -1087,146 +1130,202 @@ with tabs[3]:
 
     insight_box(
         """
-        <b>Key takeaway:</b> Political efficacy and social trust remain the strongest positive signals
-        when several factors are considered at the same time. The dots show regression coefficients;
-        the horizontal lines show 95% confidence intervals.
+        <b>Key takeaway:</b>
+        <span class="presentation-highlight">Political efficacy and social trust remain the strongest positive signals.</span>
+        The dots show regression coefficients; the horizontal lines show
+        <span class="presentation-highlight-soft">95% confidence intervals.</span>
         """
     )
 
-    plot_df = regression_results.copy()
-    plot_df = plot_df[plot_df["term"] != "Intercept"].copy()
+    # -------------------------------------------------------------
+    # Stage-controlled regression reveal for presentation
+    # -------------------------------------------------------------
 
-    term_labels = {
-        "C(gndr)[T.2.0]": "Gender",
-        "political_efficacy_index_z": "Political efficacy",
-        "social_trust_index_z": "Social trust",
-        "hincfel_z": "Income feeling",
-        "lrscale_z": "Left-right placement",
-        "eduyrs_z": "Education",
-        "agea_z": "Age",
-        "vote_binary": "Voted"
-    }
+    if "show_regression_results" not in st.session_state:
+        st.session_state.show_regression_results = False
 
-    plot_df["label"] = plot_df["term"].map(term_labels).fillna(plot_df["term"])
-    plot_df["significant"] = np.where(plot_df["p_value"] < 0.05, "p < 0.05", "not significant")
+    run_col, reset_col = st.columns([1, 4])
 
-    order = (
-        plot_df
-        .groupby("label")["coefficient"]
-        .apply(lambda x: x.abs().mean())
-        .sort_values()
-        .index
-        .tolist()
-    )
-
-    fig = go.Figure()
-
-    models = plot_df["model"].unique()
-
-    model_colors = OUTCOME_COLORS
-
-    model_offsets = {
-        "Democracy satisfaction": -0.12,
-        "Trust in political parties": 0.12
-    }
-
-    y_base = {label: i for i, label in enumerate(order)}
-
-    for model in models:
-        sub = plot_df[plot_df["model"] == model].set_index("label").loc[order].reset_index()
-        sub["y_position"] = sub["label"].map(y_base) + model_offsets.get(model, 0)
-
-        fig.add_trace(
-            go.Scatter(
-                x=sub["coefficient"],
-                y=sub["y_position"],
-                mode="markers",
-                marker=dict(
-                    size=12,
-                    color=model_colors.get(model, "#F0E442"),
-                    line=dict(width=1, color="white")
-                ),
-                error_x=dict(
-                    type="data",
-                    symmetric=False,
-                    array=sub["conf_high"] - sub["coefficient"],
-                    arrayminus=sub["coefficient"] - sub["conf_low"],
-                    thickness=1.5,
-                    width=4
-                ),
-                name=model,
-                customdata=np.stack(
-                    [
-                        sub["label"],
-                        sub["p_value"],
-                        sub["conf_low"],
-                        sub["conf_high"]
-                    ],
-                    axis=-1
-                ),
-                hovertemplate=(
-                    "<b>%{customdata[0]}</b><br>"
-                    "Coefficient: %{x:.3f}<br>"
-                    "p-value: %{customdata[1]:.5f}<br>"
-                    "95% CI: [%{customdata[2]:.3f}, %{customdata[3]:.3f}]"
-                    "<extra></extra>"
-                )
-            )
+    with run_col:
+        run_clicked = st.button(
+            "▶ Run regression model",
+            type="primary",
+            disabled=st.session_state.show_regression_results
         )
 
-    fig.update_yaxes(
-        tickmode="array",
-        tickvals=list(y_base.values()),
-        ticktext=list(y_base.keys())
-    ) 
-    fig.add_vline(x=0, line_dash="dash", line_color="rgba(242,242,242,0.65)")
+    with reset_col:
+        reset_clicked = st.button(
+            "↺ Reset view",
+            disabled=not st.session_state.show_regression_results
+        )
 
-    fig = plot_layout(
-        fig,
-        title="Regression Coefficients with 95% Confidence Intervals",
-        height=620,
-        x_title="Regression coefficient",
-        y_title="Predictor"
-    )
+    if run_clicked:
+        with st.spinner("Estimating controlled association models..."):
+            time.sleep(1.2)
+        st.session_state.show_regression_results = True
+        st.rerun()
 
-    st.plotly_chart(fig, use_container_width=True)
+    if reset_clicked:
+        st.session_state.show_regression_results = False
+        st.rerun()
 
-    method_box(
-        """
-        Reading guide: Coefficients to the right of zero indicate a positive association with the outcome.
-        Coefficients to the left indicate a negative association. Horizontal lines show 95% confidence intervals.
-        Political efficacy and social trust stand out as the strongest positive predictors in both models.
-        """
-    )
+    if not st.session_state.show_regression_results:
+        st.info(
+            "Click the button to reveal the regression results. "
+            "The model tests whether political efficacy and social trust remain associated with "
+            "democratic satisfaction and party trust when other factors are considered at the same time."
+        )
 
-    c1, c2 = st.columns([1.1, 0.9])
-
-    with c1:
-        st.markdown("### Model comparison")
-        st.dataframe(regression_model_comparison, use_container_width=True, hide_index=True)
-
-    with c2:
-        st.markdown("### Core interpretation")
         st.markdown(
             """
-            - Political efficacy remains the strongest predictor.
-            - Social trust is the second strongest predictor.
-            - The models explain around one quarter of the variation.
-            - Results are associational, not causal.
+            **Model setup shown after running:**
+
+            - **Outcomes:** democratic satisfaction and trust in political parties  
+            - **Main predictors:** political efficacy, social trust, income feeling, left-right placement and voting participation  
+            - **Controls:** age, education and gender  
+            - **Interpretation:** controlled associations, not causal effects  
             """
         )
 
-    with st.expander("Show full regression results"):
-        st.dataframe(regression_results, use_container_width=True, hide_index=True)
+    else:
+        plot_df = regression_results.copy()
+        plot_df = plot_df[plot_df["term"] != "Intercept"].copy()
 
-    if not diagnostic_summary.empty:
-        with st.expander("Show regression diagnostics summary"):
-            st.dataframe(diagnostic_summary, use_container_width=True, hide_index=True)
+        term_labels = {
+            "C(gndr)[T.2.0]": "Gender",
+            "political_efficacy_index_z": "Political efficacy",
+            "social_trust_index_z": "Social trust",
+            "hincfel_z": "Income feeling",
+            "lrscale_z": "Left-right placement",
+            "eduyrs_z": "Education",
+            "agea_z": "Age",
+            "vote_binary": "Voted"
+        }
 
-    if not vif_results.empty:
-        with st.expander("Show multicollinearity diagnostics"):
-            st.dataframe(vif_results, use_container_width=True, hide_index=True)
+        plot_df["label"] = plot_df["term"].map(term_labels).fillna(plot_df["term"])
+        plot_df["significant"] = np.where(plot_df["p_value"] < 0.05, "p < 0.05", "not significant")
 
+        order = (
+            plot_df
+            .groupby("label")["coefficient"]
+            .apply(lambda x: x.abs().mean())
+            .sort_values()
+            .index
+            .tolist()
+        )
+
+        fig = go.Figure()
+
+        models = plot_df["model"].unique()
+
+        model_colors = OUTCOME_COLORS
+
+        model_offsets = {
+            "Democracy satisfaction": -0.12,
+            "Trust in political parties": 0.12
+        }
+
+        y_base = {label: i for i, label in enumerate(order)}
+
+        for model in models:
+            sub = plot_df[plot_df["model"] == model].set_index("label").loc[order].reset_index()
+            sub["y_position"] = sub["label"].map(y_base) + model_offsets.get(model, 0)
+
+            fig.add_trace(
+                go.Scatter(
+                    x=sub["coefficient"],
+                    y=sub["y_position"],
+                    mode="markers",
+                    marker=dict(
+                        size=12,
+                        color=model_colors.get(model, "#F0E442"),
+                        line=dict(width=1, color="white")
+                    ),
+                    error_x=dict(
+                        type="data",
+                        symmetric=False,
+                        array=sub["conf_high"] - sub["coefficient"],
+                        arrayminus=sub["coefficient"] - sub["conf_low"],
+                        thickness=1.5,
+                        width=4
+                    ),
+                    name=model,
+                    customdata=np.stack(
+                        [
+                            sub["label"],
+                            sub["p_value"],
+                            sub["conf_low"],
+                            sub["conf_high"]
+                        ],
+                        axis=-1
+                    ),
+                    hovertemplate=(
+                        "<b>%{customdata[0]}</b><br>"
+                        "Coefficient: %{x:.3f}<br>"
+                        "p-value: %{customdata[1]:.5f}<br>"
+                        "95% CI: [%{customdata[2]:.3f}, %{customdata[3]:.3f}]"
+                        "<extra></extra>"
+                    )
+                )
+            )
+
+        fig.update_yaxes(
+            tickmode="array",
+            tickvals=list(y_base.values()),
+            ticktext=list(y_base.keys())
+        )
+
+        fig.add_vline(
+            x=0,
+            line_dash="dash",
+            line_color="rgba(242,242,242,0.65)"
+        )
+
+        fig = plot_layout(
+            fig,
+            title="Regression Coefficients with 95% Confidence Intervals",
+            height=620,
+            x_title="Regression coefficient",
+            y_title="Predictor"
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+        method_box(
+            """
+            Reading guide: Coefficients to the right of zero indicate a positive association with the outcome.
+            Coefficients to the left indicate a negative association. Horizontal lines show 95% confidence intervals.
+            Political efficacy and social trust stand out as the strongest positive predictors in both models.
+            """
+        )
+
+        c1, c2 = st.columns([1.1, 0.9])
+
+        with c1:
+            st.markdown("### Model comparison")
+            st.dataframe(regression_model_comparison, use_container_width=True, hide_index=True)
+
+        with c2:
+            st.markdown("### Core interpretation")
+            st.markdown(
+                """
+                - Political efficacy remains the strongest predictor.
+                - Social trust is the second strongest predictor.
+                - The models explain around one quarter of the variation.
+                - Results are associational, not causal.
+                """
+            )
+
+        with st.expander("Show full regression results"):
+            st.dataframe(regression_results, use_container_width=True, hide_index=True)
+
+        if not diagnostic_summary.empty:
+            with st.expander("Show regression diagnostics summary"):
+                st.dataframe(diagnostic_summary, use_container_width=True, hide_index=True)
+
+        if not vif_results.empty:
+            with st.expander("Show multicollinearity diagnostics"):
+                st.dataframe(vif_results, use_container_width=True, hide_index=True)
 
 # =============================================================================
 # TAB 5: PROFILES
@@ -1237,9 +1336,10 @@ with tabs[4]:
 
     insight_box(
         """
-        <b>Key takeaway:</b> Democratic disengagement is not only about non-voters.
+        <b>Key takeaway:</b>
+        <span class="presentation-highlight">Democratic disengagement is not only about non-voters.</span>
         A large group still votes, but shows low democratic satisfaction and low party trust.
-        Voting alone is therefore not enough to understand democratic stability.
+        <span class="presentation-highlight-soft">Voting alone is therefore not enough to understand democratic stability.</span>
         """
     )
 
@@ -1641,22 +1741,24 @@ with tabs[5]:
         )
 
         fig.update_layout(
-            margin=dict(l=30, r=30, t=150, b=55),
+            margin=dict(l=30, r=30, t=170, b=55),
             title=dict(
                 text="2D PCA Map of Democratic Connection Profiles",
                 x=0.02,
                 xanchor="left",
-                y=0.97,
+                y=0.98,
                 font=dict(size=21)
             ),
             legend=dict(
                 title=None,
                 orientation="h",
                 yanchor="top",
-                y=1.04,
+                y=1.035,
                 xanchor="center",
                 x=0.55,
-                itemsizing="constant"
+                itemsizing="constant",
+                font=dict(size=18),
+                itemwidth=30
             )
         )
 
@@ -1751,7 +1853,11 @@ with tabs[5]:
                     zaxis_title=pc3_short,
                     bgcolor="#0E1117"
                 ),
-                legend=dict(title=None),
+                legend=dict(
+                    title=None,
+                    font=dict(size=18),
+                    itemsizing="constant"
+                ),
                 margin=dict(l=0, r=0, b=0, t=70)
             )
 
@@ -1891,8 +1997,11 @@ with tabs[6]:
 
     insight_box(
         """
-        <b>Key takeaway:</b> If political efficacy is the strongest signal, democratic actors need more
-        than better messaging. They need credible experiences of voice, responsiveness and social connection.
+        <b>Key takeaway:</b>
+        If political efficacy is the strongest signal, democratic actors need
+        <span class="presentation-highlight">more than better messaging.</span>
+        They need credible experiences of
+        <span class="presentation-highlight-soft">voice, responsiveness and social connection.</span>
         """
     )
 
@@ -1952,9 +2061,10 @@ with tabs[7]:
 
     insight_box(
         """
-        <b>Optional transfer layer:</b> This section connects the ESS-based findings with standardized
-        Wahl-O-Mat 2025 party positions. It is an exploratory issue-alignment map, not a party ranking
-        and not a full manifesto analysis.
+        <b>Optional transfer layer:</b>
+        This section connects the ESS-based findings with standardized Wahl-O-Mat 2025 party positions.
+        It is an exploratory issue-alignment map,
+        <span class="presentation-highlight-soft">not a party ranking and not a full manifesto analysis.</span>
         """
     )
 
