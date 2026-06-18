@@ -1,11 +1,4 @@
----TBReviewed---
-
-
+streamlit
 pandas
-pyreadstat
-openpyxl
-matplotlib
 numpy
-scipy
-statsmodels
-scikit-learn (Clustering)
+plotly
